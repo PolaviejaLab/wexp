@@ -1,0 +1,57 @@
+
+@import url(http://fonts.googleapis.com/css?family=Signika+Negative);
+@import url(http://fonts.googleapis.com/css?family=Amaranth);
+@import url(http://fonts.googleapis.com/css?family=Open Sans);
+
+body {
+	font-family: 'Amaranth', sans-serif;
+	margin: 0px;
+}
+
+/* Top menu bar */
+
+#bar {
+	background: #000000;
+	color: #FFFFFF;
+	margin: 0px;
+	padding: 10px 10px;	
+}
+
+#bar>ul>li>ul {
+	background: #000000;
+	color: #FFFFFF;
+	padding: 5px 5px;
+}
+
+#bar li:hover {
+	color: #f7f99b;
+}
+
+
+
+
+.language-flag {
+	height: 12px;
+	width: 20px;
+}
+
+li.mi-title {
+	color: #f7f99b;	
+}
+
+
+/* Content area  */
+
+#content {
+	padding: 10px;
+}
+
+#content table {
+	border: 1px solid black;
+}
+
+#content table th {
+	border-bottom: 1px solid black;
+}
+
+

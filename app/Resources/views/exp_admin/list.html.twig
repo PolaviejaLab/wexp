@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<p><h1>Your experiments</h1></p>
+
+<table>
+	<tr>
+		<th>Experiment name</th>
+		<th># actors</th>
+	</tr>
+{% for experiment in experiments %}
+	<tr>
+		<td>{{ experiment.name }}</td>
+		<td>{{ experiment.numberOfActors }}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="">Create new experiment</a>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+
+/**
+  Horizontal and vertical menus
+ */
+
+ul.menu-horizontal
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;	
+}
+
+
+ul.menu-horizontal>li {
+	display: inline;
+	position: relative;
+	
+	/* Defaults */
+	text-align: center;
+	
+	padding-left: 20px;
+	padding-right: 20px;	
+}
+
+
+li.mi-left {
+	float: left;
+}
+
+
+li.mi-right {
+	float: right;
+}
+
+
+ul.menu-vertical
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+ul.menu-vertical>li {
+	display: block;
+	position: relative;
+	white-space: nowrap;
+
+	/* Defaults */	
+	text-align: left;
+	padding: 4px;
+}
+
+
+/**
+  Dropdown menu
+ */
+
+ul.menu-horizontal>li, ul.menu-vertical>li {
+	cursor: pointer;
+}
+
+ul.menu-dropdown>li>ul {
+	display: none;
+	position: absolute;
+	left: 1px;		
+	z-order: 100;
+}
+
+ul.menu-dropdown>li:hover>ul {
+	display: block;
+}

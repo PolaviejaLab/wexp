@@ -1,0 +1,26 @@
+security:
+    encoders:
+        UserBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+    providers:
+        administrators:
+            entity: { class: UserBundle:User, property: username }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        default:
+            anonymous: ~
+            http_basic: ~
+            
+            form_login:
+                login_path: /login
+                check_path: /login_check
+
+            logout:
+                path: /logout
+                target: /
