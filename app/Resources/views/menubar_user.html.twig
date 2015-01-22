@@ -1,0 +1,17 @@
+<div id="bar" class="autohide">
+	<ul class="menu-dropdown menu-horizontal">
+		<li class="mi-title">Running experiment</li>
+    		  			
+    	<li class="mi-right">
+    		{% if app.user %}
+    			User: {{ app.user.username|capitalize }}
+
+	    		<ul class="menu-vertical">
+    				<li><a href="{{ path('logout') }}">Logout</a></li>
+   				</ul>
+   			{% else %}
+   				<a href="{{ path('login') }}">Login</a>
+   			{% endif %}
+    	</li>    			
+   	</ul>
+</div>

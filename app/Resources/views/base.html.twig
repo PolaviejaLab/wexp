@@ -12,37 +12,21 @@
         {% block stylesheets %}       	
         	<link href="{{ asset('bundles/app/css/menu.css') }}" rel="stylesheet" />
         	<link href="{{ asset('bundles/app/css/layout.css') }}" rel="stylesheet" />
+        	<link href="{{ asset('bundles/app/css/input.css') }}" rel="stylesheet" />
         {% endblock %}
+        
+        <script src="{{ asset('bundles/app/js/jquery-2.1.3.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/screens.js') }}"></script>
     </head>
+    
     <body>
-    	<div id="bar">
-    		<ul class="menu-dropdown menu-horizontal">
-    			<li class="mi-title">Setup</li>
-    			<li>Experiments</li>
-    		
-    			<li class="mi-right">
-    				{{ macros.country("en", "English") }}    				
-    				
-    				<ul class="menu-vertical">
-    					<li>{{ macros.country("en", "English")}}</li>
-    					<li>{{ macros.country("pt", "Português")}}</li>
-    					<li>{{ macros.country("nl", "Nederlands")}}</li>
-    					<li>{{ macros.country("de", "Deutsch")}}</li>
-    				</ul>
-    				
-    			</li>
-    			
-    			<li class="mi-right">
-    				Not logged in
-    				
-    				<ul class="menu-vertical">
-    					<li>User profile</li>
-   					</ul>
-    			</li>    			
-    		</ul>
-    	</div>
+    	{% if is_granted('ROLE_RESEARCHER') %}
+			{% include 'menubar_admin.html.twig' %}
+		{% else %}
+			{% include 'menubar_user.html.twig' %}
+		{% endif %}
        
-    	<div id="content">
+    	<div class="content noselect">
         	{% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}

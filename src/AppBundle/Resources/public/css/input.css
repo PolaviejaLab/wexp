@@ -1,0 +1,22 @@
+
+input[type=radio] + label {
+	cursor: pointer;
+}
+
+input.bt-continue {
+	background: #0215c4;
+	color: white;
+	border: 1px solid black;
+	padding: 5px 15px;
+	font-family: 'Lato';
+	font-size: 100%;	
+}
+
+input.bt-continue:hover {
+	cursor: pointer;
+}
+
+input.bt-continue:active {
+	background: #2238fd;
+	color: #ffff80;
+}

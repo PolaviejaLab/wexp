@@ -1,0 +1,62 @@
+<screen>
+<h2>Personal questions</h2>
+
+<question name="gender">
+	<text>What is your gender?</text>
+	
+	<answer type="radio">
+		<option value="male">Male</option>
+		<option value="female">Female</option>
+	</answer>
+</question>
+
+<br />
+<br />
+ 
+<question name="age">
+ 	<text>What is your age?</text> 		
+	<answer type="number" required="true" min="1" max="150" step="1"></answer>
+</question>
+
+<br />
+<br />
+ 
+<question name="car">
+	<text>What kind of car do you drive?</text>
+
+	<answer type="dropdown">
+		<optgroup label="German cars">
+			<option>Volkswagen</option>		
+			<option>Mercedes</option>
+		</optgroup>
+		
+		<optgroup label="Portuguese cars">
+			<option>Portaro</option>
+			<option>Vinci</option>
+		</optgroup>
+	</answer>
+</question>
+
+<br />
+<h2>More questions</h2>
+  
+<question_table>
+	<answer type="radio">
+		<option value="1">Strongly disagree</option>
+		<option value="2">Disagree</option>
+		<option value="3">Slightly disagree</option>
+		<option value="4">Slightly agree</option>
+		<option value="5">Agree</option>
+		<option value="6">Strongly agree</option>
+	</answer>
+
+	<questions>
+		<question name="q1"><text>I'm not bothered by things that interrupt my daily routine.</text></question>
+		<question name="q2"><text>I enjoy the exhilaration of being in unpredictable situations.</text></question>
+	</questions>
+</question_table>
+ 
+<br />
+
+<button id="bt-continue">Continue to page 2</button> 
+</screen>

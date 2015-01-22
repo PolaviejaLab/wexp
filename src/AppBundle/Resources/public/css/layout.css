@@ -1,7 +1,6 @@
 
-@import url(http://fonts.googleapis.com/css?family=Signika+Negative);
 @import url(http://fonts.googleapis.com/css?family=Amaranth);
-@import url(http://fonts.googleapis.com/css?family=Open Sans);
+@import url(http://fonts.googleapis.com/css?family=Lato);
 
 body {
 	font-family: 'Amaranth', sans-serif;
@@ -28,6 +27,11 @@ body {
 }
 
 
+#bar a {
+	color: white;
+	text-decoration: none;
+}
+
 
 
 .language-flag {
@@ -40,17 +44,32 @@ li.mi-title {
 }
 
 
+/* Disable select */
+.noselect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
+	cursor: default;
+}
+
 /* Content area  */
 
-#content {
+.content {
 	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;	
 }
 
-#content table {
-	border: 1px solid black;
+.content table {
+	margin: 0 auto;	
 }
 
-#content table th {
+.content table th {
 	border-bottom: 1px solid black;
 }
 
