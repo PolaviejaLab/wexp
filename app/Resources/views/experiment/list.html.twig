@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<p><h1>Available experiments</h1></p>
+
+<table>
+	<tr>
+		<th></th>
+		<th>Experiment name</th>
+		<th>Researcher</th>
+		<th>Actions</th>
+	</tr>
+{% for experiment in experiments %}
+	<tr>
+		<td>{{ experiment.id }}</td>
+		<td>{{ experiment.name }}</td>
+		<td><a href="">{{ experiment.owners['0'].username|capitalize }}</a></td>
+		<td><a href="{{ path('experiment_lobby', {'id': experiment.id}) }}">Participate</a></td>
+	</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

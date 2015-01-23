@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="experiment_log")
  */
-class ExperimentLog
+class Log
 {
 	/**
 	 * @ORM\Column(type="integer")
@@ -23,14 +23,14 @@ class ExperimentLog
 	protected $timestamp;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="ExperimentSession")
+	 * @ORM\ManyToOne(targetEntity="Session")
 	 */
-	protected $experiment_session;	
+	protected $session;	
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Actor")
+	 * @ORM\ManyToOne(targetEntity="Player")
 	 */	
-	protected $actor;
+	protected $player;
 	
 	/**
 	 * @ORM\Column(type="string", length=254)
@@ -94,48 +94,48 @@ class ExperimentLog
     }
 
     /**
-     * Set experiment_session
+     * Set session
      *
-     * @param \AppBundle\Entity\ExperimentSession $experimentSession
-     * @return ExperimentLog
+     * @param \AppBundle\Entity\Session $session
+     * @return Log
      */
-    public function setExperimentSession(\AppBundle\Entity\ExperimentSession $experimentSession = null)
+    public function setSession(\AppBundle\Entity\Session $session = null)
     {
-        $this->experiment_session = $experimentSession;
+        $this->session = $session;
 
         return $this;
     }
 
     /**
-     * Get experiment_session
+     * Get session
      *
-     * @return \AppBundle\Entity\ExperimentSession 
+     * @return \AppBundle\Entity\Session 
      */
-    public function getExperimentSession()
+    public function getSession()
     {
-        return $this->experiment_session;
+        return $this->session;
     }
 
     /**
-     * Set actor
+     * Set player
      *
-     * @param \AppBundle\Entity\Actor $actor
-     * @return ExperimentLog
+     * @param \AppBundle\Entity\Player $player
+     * @return Log
      */
-    public function setActor(\AppBundle\Entity\Actor $actor = null)
+    public function setPlayer(\AppBundle\Entity\Player $player = null)
     {
-        $this->actor = $actor;
+        $this->player = $player;
 
         return $this;
     }
 
     /**
-     * Get actor
+     * Get player
      *
-     * @return \AppBundle\Entity\Actor 
+     * @return \AppBundle\Entity\Player 
      */
-    public function getActor()
+    public function getPlayer()
     {
-        return $this->actor;
+        return $this->player;
     }
 }

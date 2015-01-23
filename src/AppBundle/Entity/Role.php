@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="experiment_role")
  */
-class ExperimentRole
+class Role
 {
 	/**
 	 * @ORM\Column(type="integer")
@@ -19,13 +19,21 @@ class ExperimentRole
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Experiment")
+	 * @ORM\JoinColumn(name="experiment", referencedColumnName="id", nullable=false)
 	 */
 	protected $experiment;
 	
 	/**
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="string", nullable=false)
 	 */
-	protected $name;	
+	protected $name = "Player";
+	
+	
+	/**
+	 * @ORM\Column(type="integer", nullable=false) 
+	 */
+	protected $amount = 1;
+	
 
     /**
      * Get id
@@ -60,11 +68,12 @@ class ExperimentRole
         return $this->name;
     }
 
+
     /**
      * Set experiment
      *
      * @param \AppBundle\Entity\Experiment $experiment
-     * @return ExperimentRole
+     * @return Role
      */
     public function setExperiment(\AppBundle\Entity\Experiment $experiment = null)
     {
@@ -81,5 +90,28 @@ class ExperimentRole
     public function getExperiment()
     {
         return $this->experiment;
+    }
+
+    /**
+     * Set amount
+     *
+     * @param integer $amount
+     * @return Role
+     */
+    public function setAmount($amount)
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return integer 
+     */
+    public function getAmount()
+    {
+        return $this->amount;
     }
 }

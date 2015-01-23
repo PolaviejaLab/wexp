@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Preparing experiment</h1>
+
+Player: {{ player.id }}<br />
+Experiment: {{ player.experiment.name }}<br />
+
+{% if player.session is null %}
+Session: not assigned
+{% else %}
+Session: {{ player.session.id }}
+{% endif %}
+
+{% endblock %}

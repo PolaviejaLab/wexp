@@ -26,17 +26,17 @@ class Experiment
 	 * @ORM\Column(type="string", length=100)
 	 */
 	protected $name = "New experiment";
-	
-	/**
-	 * @ORM\Column(type="integer")
-	 */
-	protected $number_of_actors = 1;
-	
-	/**
-	 * @ORM\Column(type="integer")
-	 */	
-	protected $matching_script = "";
 
+	/**
+	 * @ORM\OneToMany(targetEntity="Role", mappedBy="experiment")	 
+	 */
+	protected $roles;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="Session", mappedBy="experiment")
+	 */
+	protected $sessions;	
+	
     /**
      * Get id
      *
@@ -70,51 +70,7 @@ class Experiment
         return $this->name;
     }
 
-    /**
-     * Set number_of_actors
-     *
-     * @param integer $numberOfActors
-     * @return Experiment
-     */
-    public function setNumberOfActors($numberOfActors)
-    {
-        $this->number_of_actors = $numberOfActors;
 
-        return $this;
-    }
-
-    /**
-     * Get number_of_actors
-     *
-     * @return integer 
-     */
-    public function getNumberOfActors()
-    {
-        return $this->number_of_actors;
-    }
-
-    /**
-     * Set matching_script
-     *
-     * @param integer $matchingScript
-     * @return Experiment
-     */
-    public function setMatchingScript($matchingScript)
-    {
-        $this->matching_script = $matchingScript;
-
-        return $this;
-    }
-
-    /**
-     * Get matching_script
-     *
-     * @return integer 
-     */
-    public function getMatchingScript()
-    {
-        return $this->matching_script;
-    }
     /**
      * Constructor
      */
@@ -123,6 +79,7 @@ class Experiment
         $this->owners = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    
     /**
      * Add owners
      *
@@ -154,5 +111,71 @@ class Experiment
     public function getOwners()
     {
         return $this->owners;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \AppBundle\Entity\Role $roles
+     * @return Experiment
+     */
+    public function addRole(\AppBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \AppBundle\Entity\Role $roles
+     */
+    public function removeRole(\AppBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Add sessions
+     *
+     * @param \AppBundle\Entity\Session $sessions
+     * @return Experiment
+     */
+    public function addSession(\AppBundle\Entity\Session $sessions)
+    {
+        $this->sessions[] = $sessions;
+
+        return $this;
+    }
+
+    /**
+     * Remove sessions
+     *
+     * @param \AppBundle\Entity\Session $sessions
+     */
+    public function removeSession(\AppBundle\Entity\Session $sessions)
+    {
+        $this->sessions->removeElement($sessions);
+    }
+
+    /**
+     * Get sessions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSessions()
+    {
+        return $this->sessions;
     }
 }

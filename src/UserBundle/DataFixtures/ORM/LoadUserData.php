@@ -12,6 +12,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
 	public function load(ObjectManager $manager)
 	{
+		/**
+		 * https://www.dailycred.com/blog/12/bcrypt-calculator
+		 */
+		
 		$admin_role = new Role();
 		$admin_role->setName("Administrator");
 		$admin_role->setRole("ROLE_ADMINISTRATOR");
@@ -33,12 +37,12 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 		
 		$researcher = new User();
 		$researcher->setUserName("researcher");
-		$researcher->setPassword('$2a$12$HMZ26kSU.QVZAb1qgobpT.TyV0gWaB58IFVS2p2MQd6zIr.vEIgxu');
+		$researcher->setPassword('$2a$12$jIa9gRwLHZ/OrIl4HaOibO4BqfoRzUnhefGkFxksXRq59YKQWdvNy');
 		$researcher->addRole($researcher_role);
 				
 		$user = new User();
 		$user->setUsername("ivar");
-		$user->setPassword('$2a$12$HMZ26kSU.QVZAb1qgobpT.TyV0gWaB58IFVS2p2MQd6zIr.vEIgxu');
+		$user->setPassword('$2a$12$jIa9gRwLHZ/OrIl4HaOibO4BqfoRzUnhefGkFxksXRq59YKQWdvNy');
 		$user->addRole($participant_role);
 		
 		$manager->persist($researcher);

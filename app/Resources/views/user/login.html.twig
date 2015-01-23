@@ -1,15 +1,76 @@
+{% extends 'base.html.twig' %}
 
-{% if error %}
-	<div>{{ error.message }}</div>
-{% endif %}
+{% block body %}
+
+<div class="panel">
+	<h2>Login with existing account</h2>
+
+	{% if error %}
+	<div class="error">{{ error.message }}</div>
+	{% endif %}
 
 <form action="{{ path('login_check') }}" method="post">
 
+	<span>
 	<label for="username">Username:</label>
 	<input type="text" id="username" name="_username" value="{{ last_username }}" />
+	</span>
 	
+	<span>
 	<label for="password">Password:</label>
-	<input type="password" id="password=" name="_password" />
-
-	<button type="submit">login</button>
+	<input type="password" id="password" name="_password" />
+	</span>
+	
+	<button type="submit">Login</button>
 </form>
+
+</div>
+
+<div class="panel">
+	<h2>Create a new account</h2>
+	
+	<span>
+	<label for="username">Username:</label>
+	<input type="text" id="username" name="_username" />
+	</span>
+	
+	<span>
+	<label for="email">Email:</label>
+	<input type="text" id="email" name="_email" />
+	</span>		
+	
+	<button type="submit">Create new account</button>
+</div>
+
+<style>
+	.error {
+		color: red;
+	}
+	
+	div {
+		vertical-align: top;
+	}
+	
+	label {
+		display: block;
+		margin-top: 7px;
+	}
+	
+	
+	input {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 7px;
+	}
+	
+	
+	.panel {
+		display: inline-block;
+		margin: 0px 25px;
+	}
+	
+	
+	
+</style>
+{% endblock %}
