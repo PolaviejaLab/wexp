@@ -1,12 +1,4 @@
 
-var QuestionTableProto = Object.create(HTMLElement.prototype);
-
-QuestionTableProto.createdCallback = function() {
-	this.innerHTML = "QUESTION_TABLE";
-};
-
-document.registerElement('question_table', { prototype: QuestionTableProto });
-
 /*
 <question_table>
 <answer type="radio">

@@ -13,4 +13,27 @@ Session: not assigned
 Session: {{ player.session.id }}
 {% endif %}
 
+	<script>
+	console.log("Connecting to SSE channel");
+	
+	var sse_location = "{{ path('experiment_sse') }}";
+	
+	var source = new EventSource(sse_location);
+	
+	source.addEventListener('message', function(e) {
+  		console.log(e.data);
+	}, false);
+	
+	source.onopen = function(event) {
+		console.log("SSE channel has been openend");
+		console.log(event);
+	};
+	
+	source.addEventListener("tick", function(event) {
+		console.log("Tick");
+	}, false);
+
+	console.log(source);
+</script>
+
 {% endblock %}

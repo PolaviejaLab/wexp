@@ -24,7 +24,7 @@ class ExperimentController extends Controller
     /** 
      * @Route("/experiment/{id}/lobby", name="experiment_lobby")
      */
-    public function lobbyAcction($id)
+    public function lobbyAction($id)
     {
     	$experiment = $this->getDoctrine()->getRepository("AppBundle:Experiment")->find($id);
     	$user = $this->getUser();
@@ -56,5 +56,38 @@ class ExperimentController extends Controller
     	 * from the server that a session id is available.
     	 */
     	return $this->render('experiment/lobby.html.twig', array('player' => $player));
+    }
+    
+    
+    private function sendMessage($id, $message)
+    {
+    	echo("id: $id" . PHP_EOL);
+    	echo("data: $message" . PHP_EOL);
+    	echo(PHP_EOL);
+    
+    	flush();
+    }
+    
+    
+    /**
+     * @Route("/experiment/sse", name="experiment_sse")
+     */
+    public function sseAction()
+    {
+    	$response = new \Symfony\Component\HttpFoundation\StreamedResponse(function() {
+    		ob_implicit_flush(true);
+
+    		$i = 0;
+
+    		while(true) {
+    			$this->sendMessage($i++, "Server time: " . microtime(true));
+    			sleep(1);
+    		}
+    	});
+    	
+    	$response->headers->set('Content-Type', 'text/event-stream');
+    	$response->headers->set('Cache-Control', 'no-cache');
+    			
+		return $response;
     }
 }

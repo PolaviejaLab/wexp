@@ -13,6 +13,7 @@ class LoadExperimentData extends AbstractFixture implements OrderedFixtureInterf
 {
 	public function load(ObjectManager $manager)
 	{
+		// Multiplayer experiment
 		$experiment = new Experiment();	
 		$experiment->setName("Public Goods Game");
 		$experiment->addOwner($this->getReference('user-researcher'));;
@@ -27,7 +28,24 @@ class LoadExperimentData extends AbstractFixture implements OrderedFixtureInterf
 
 			$manager->persist($role);
 			$manager->flush();
-		}		
+		}
+		
+		
+		// Single player experiment
+		$experiment = new Experiment();
+		$experiment->setName("Single Participant Experiment");
+		$experiment->addOwner($this->getReference('user-researcher'));
+		
+		$manager->persist($experiment);
+		$manager->flush();
+		
+		$role = new Role();
+		$role->setName("Player");
+		$role->setAmount(1);
+		$role->setExperiment($experiment);
+		
+		$manager->persist($role);
+		$manager->flush();
 	}
 	
 	
