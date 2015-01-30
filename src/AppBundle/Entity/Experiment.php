@@ -37,6 +37,11 @@ class Experiment
 	 */
 	protected $sessions;	
 	
+	/**
+	 * @ORM\OneToMany(targetEntity="Screen", mappedBy="experiment")
+	 */
+	protected $screens;
+	
     /**
      * Get id
      *
@@ -77,6 +82,7 @@ class Experiment
     public function __construct()
     {
         $this->owners = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->screens = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     
@@ -177,5 +183,38 @@ class Experiment
     public function getSessions()
     {
         return $this->sessions;
+    }
+
+    /**
+     * Add screens
+     *
+     * @param \AppBundle\Entity\Screen $screens
+     * @return Experiment
+     */
+    public function addScreen(\AppBundle\Entity\Screen $screens)
+    {
+        $this->screens[] = $screens;
+
+        return $this;
+    }
+
+    /**
+     * Remove screens
+     *
+     * @param \AppBundle\Entity\Screen $screens
+     */
+    public function removeScreen(\AppBundle\Entity\Screen $screens)
+    {
+        $this->screens->removeElement($screens);
+    }
+
+    /**
+     * Get screens
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getScreens()
+    {
+        return $this->screens;
     }
 }

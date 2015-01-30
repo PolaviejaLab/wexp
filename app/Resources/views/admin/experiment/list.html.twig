@@ -7,16 +7,16 @@
 <table>
 	<tr>
 		<th>Experiment name</th>
-		<th># actors</th>
+		<th>Edit</th>
 	</tr>
 {% for experiment in experiments %}
 	<tr>
 		<td>{{ experiment.name }}</td>
-		<td>{{ experiment.numberOfActors }}</td>
+		<td><a href="{{ path('admin_experiment_view', {'experiment': experiment.id}) }}">Edit</a></td>
 	</tr>
 {% endfor %}
 </table>
 
-<a href="">Create new experiment</a>
+<p><a href="{{ path('admin_experiment_create') }}">Create new experiment</a></p>
 
 {% endblock %}

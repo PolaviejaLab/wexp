@@ -34,17 +34,10 @@ old_sound_rabbit_mq:
     connections:
         default:
             host: 'localhost'
-            post: "%rabbit_port%"
+            port: "%rabbit_port%"
             user: "%rabbit_user%"
             password: "%rabbit_password%"
             vhost: '/'
-            lazy: false
-
-            connection_timeout: 3
-            read_write_timeout: 3
-
-            keepalive: false
-            heartbeat: 0
 
 # Assetic Configuration
 assetic:

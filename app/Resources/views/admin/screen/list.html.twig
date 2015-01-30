@@ -1,0 +1,26 @@
+
+<p><h1>Screens</h1></p>
+
+<table>
+	<tr>
+		<th>#</th>
+		<th>Name</th>
+		<th>Last changed</th>
+		<th></th>
+		<th></th>
+	</tr>
+{% for screen in screens %}
+	<tr>
+		<td>{{ screen.id }}</td>
+		<td><a href="">{{ screen.name }}</a></td>
+		<td>screen.last.timestamp</td>
+		<td>screen.versions | length</td>
+	</tr>
+{% else %}
+	<tr>
+		<td colspan="4">No screens found</td>
+	</tr>
+{% endfor %}
+</table>
+
+<p><a href="{{ path('admin_screen_create') }}">Create new screen</a></p>

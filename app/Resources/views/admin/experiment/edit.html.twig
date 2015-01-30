@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<style>
+	.box {
+		float: left;
+		
+		width: 30%;
+	}
+</style>
+
+<p><h1>Experiment <i>{{ experiment.name }}</i></h1></p>
+
+<div class="box">
+<p><h2>Screens</h2></p>
+
+<table>
+	<tr>
+		<th>#</th>
+		<th>Screen name</th>
+		<th>Date changed</th>
+		<th>Edit</th>
+		<th>Show versions</th>
+	</tr>	
+	{% for screen in screens %}
+	<tr>
+		<td>{{ screen.id }}</td>
+		<td>{{ screen.name }}</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	{% else %}
+	<tr>
+		<td colspan="5">No screens found</td>
+	</tr>
+	{% endfor %}
+</table>
+
+<p><a href="">Create new screen</a></p>
+</div>
+
+
+<div class="box">
+<p><h2>Roles</h2></p>
+
+<table>
+	<tr>
+		<th>Role</th>
+		<th>Count</th>
+	</tr>
+	
+	<tr>
+		<td><a href="">Normal</a></td>
+		<td>4</td>
+	</tr>
+</table>
+
+<p><a href="">Add new role</a></p>
+</div>
+
+
+<div class="box">
+<p><h2>Participation conditions</h2></p>
+
+<p>Everyone can participate.</p>
+
+<p><a href="">Add new rule</a></p>
+</div>
+
+
+<div class="box">
+<p><h2>Control scripts</h2></p>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th></th>
+	</tr>
+	
+	<tr>
+		<td><a href="">Default script</a></td>
+		<td>JavaScript</td>
+	</tr>
+</table>
+
+<p><a href="">Create new script</a></p>
+</div>
+
+
+<div class="box">
+<h1>Current status</h1>
+
+<p>1 person is currently participating in the experiment.</p>
+
+<p>2 people have successfully completed the experiment.</p>
+
+<p><h2>Sessions</h2></p>
+
+<table>
+	<tr>
+		<th>Date</th>
+		<th>Status</th>
+		<th></th>
+	</tr>
+	
+	<tr>
+		<td>2014-02-06 10:50</td><td>Running</td><td><a href="">View</a></td>
+	</tr>
+	
+	<tr>		
+		<td>2014-02-04 14:50</td><td>Finished</td><td><a href="">Results</a></td>
+	</tr>
+	
+	<tr>		
+		<td>2014-02-02 16:50</td><td>Aborted</td><td><a href="">Details</a></td>
+	</tr>
+	
+	<tr>		
+		<td>2014-02-01 12:50</td><td>Finished</td><td><a href="">Results</a></td>		
+	</tr>
+</table>
+
+<p><a href="">Export complete dataset</a></p>
+</div>
+
+{% endblock %}
