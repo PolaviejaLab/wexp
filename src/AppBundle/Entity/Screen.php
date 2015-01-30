@@ -23,10 +23,20 @@ class Screen
 	protected $experiment;
 	
 	/**
-	 * @ORM\Column(type="string", unique = true)
+	 * @ORM\Column(type="string")
 	 */
 	protected $name = "";
-
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="ScreenVersion", mappedBy="screen")
+	 */
+	protected $screenVersions;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="ScreenVersion")
+	 */
+	protected $currentVersion;
+		
     /**
      * Get id
      *
@@ -81,5 +91,69 @@ class Screen
     public function getExperiment()
     {
         return $this->experiment;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->screenVersions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add screenVersions
+     *
+     * @param \AppBundle\Entity\ScreenVersion $screenVersions
+     * @return Screen
+     */
+    public function addScreenVersion(\AppBundle\Entity\ScreenVersion $screenVersions)
+    {
+        $this->screenVersions[] = $screenVersions;
+
+        return $this;
+    }
+
+    /**
+     * Remove screenVersions
+     *
+     * @param \AppBundle\Entity\ScreenVersion $screenVersions
+     */
+    public function removeScreenVersion(\AppBundle\Entity\ScreenVersion $screenVersions)
+    {
+        $this->screenVersions->removeElement($screenVersions);
+    }
+
+    /**
+     * Get screenVersions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getScreenVersions()
+    {
+        return $this->screenVersions;
+    }
+        
+
+    /**
+     * Set currentVersion
+     *
+     * @param \AppBundle\Entity\ScreenVersion $currentVersion
+     * @return Screen
+     */
+    public function setCurrentVersion(\AppBundle\Entity\ScreenVersion $currentVersion = null)
+    {
+        $this->currentVersion = $currentVersion;
+
+        return $this;
+    }
+
+    /**
+     * Get currentVersion
+     *
+     * @return \AppBundle\Entity\ScreenVersion 
+     */
+    public function getCurrentVersion()
+    {
+        return $this->currentVersion;
     }
 }

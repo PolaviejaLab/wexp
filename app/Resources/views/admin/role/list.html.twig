@@ -3,14 +3,22 @@
 
 <table>
 	<tr>
+		<th>Id</th>
+		{% if not experiment %}
+		<th>Experiment</th>
+		{% endif %}
 		<th>Role</th>
 		<th>Count</th>
 	</tr>
 	
 	{% for role in roles %}
 	<tr>
-		<td><a href="">Normal</a></td>
-		<td>4</td>
+		<td>{{ role.id }}</td>
+		{% if not experiment %}
+		<td><a href="{{ path('admin_experiment_view', {'experiment': role.experiment.id}) }}">{{ role.experiment.name }}</a>
+		{% endif %}
+		<td>{{ role.name }}</td>
+		<td>{{ role.amount }}</td>
 	</tr>
 	{% else %}
 	<tr>

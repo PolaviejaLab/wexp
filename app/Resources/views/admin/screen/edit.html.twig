@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<p><h1>Edit screen #{{ screen.id }}: <i>{{ screen.name }}</i></h1></p>
+
+
+<div style="float: right; margin-right: 50px;">
+<p><h2>Versions</h2></p>
+<table>
+	<tr>
+		<th>Id</th>
+		<th>Version</th>
+	</tr>
+	
+	{% for version in screen.screenVersions %}
+	<tr>
+		<td>{{ version.id }}</td>
+		<td>{{ version.timestamp }}</td>
+	</tr>
+	{% else %}
+	<tr>
+		<td colspan="2">No versions found</td>
+	</tr>
+	{% endfor %}
+</table>
+</div>
+
+
+<div class="box">
+	<form method="post" action="{{ path('admin_screen_edit', {'screen': screen.id}) }}">
+	<p>
+		<textarea rows="40" cols="80">{% if screen.currentVersion %}{{ screen.currentVersion.contents }}{% else %}&lt;screen&gt;
+	&lt;h1&gt;Replace this with your own screen.&lt;/h1&gt;
+&lt;/screen&gt;{% endif %}</textarea>
+	</p>
+
+	<p>
+		<input type="submit" value="Update screen" />
+	</p>
+	</form>
+</div>
+
+{% endblock %}

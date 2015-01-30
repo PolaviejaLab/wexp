@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% if experiment %}
+<p><h1>Create screen for <i>{{ experiment.name }}</i></h1></p>
+{% else %}
+<p><h1>Create screen</h1></p>
+{% endif %}
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% endblock %}

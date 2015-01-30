@@ -31,11 +31,7 @@ class ScreenVersion
 	 * @ORM\Column(type="text", nullable=false)
 	 */
 	protected $contents = "";
-	
-	/**
-	 * @ORM\OneToMany(targetEntity="ScreenVersion", mappedBy="screen")
-	 */
-	protected $screenVersions;
+
 	
 	
     /**

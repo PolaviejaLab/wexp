@@ -1,20 +1,30 @@
 
-<p><h1>Screens</h1></p>
+<p><h2>Screens</h2></p>
 
 <table>
 	<tr>
-		<th>#</th>
+		<th>Id</th>
+		{% if not experiment %}
+		<th>Experiment</th>
+		{% endif %}
 		<th>Name</th>
 		<th>Last changed</th>
-		<th></th>
-		<th></th>
+		<th>Versions</th>
 	</tr>
 {% for screen in screens %}
 	<tr>
 		<td>{{ screen.id }}</td>
-		<td><a href="">{{ screen.name }}</a></td>
-		<td>screen.last.timestamp</td>
-		<td>screen.versions | length</td>
+		{% if not experiment %}
+			{% if screen.experiment %}
+				<td>{{ screen.experiment.name }}</td>
+			{% else %}
+				<td>Unassigned</td>
+			{% endif %}
+		{% endif %}
+		
+		<td><a href="{{ path('admin_screen_edit', {'screen': screen.id}) }}">{{ screen.name }}</a></td>
+		<td><!-- screen.last.timestamp --></td>
+		<td>{{ screen.screenVersions | length }} version(s)</td>
 	</tr>
 {% else %}
 	<tr>
@@ -23,4 +33,8 @@
 {% endfor %}
 </table>
 
+{% if not experiment %}
 <p><a href="{{ path('admin_screen_create') }}">Create new screen</a></p>
+{% else %}
+<p><a href="{{ path('admin_screen_create', {'experiment': experiment.id}) }}">Create new screen</a></p>
+{% endif %}

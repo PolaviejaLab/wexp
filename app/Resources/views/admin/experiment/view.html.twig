@@ -12,9 +12,9 @@
 
 <p><h1>Experiment <i>{{ experiment.name }}</i></h1></p>
 
-<div class="box">{% render "/admin/screens" %}</div>
+<div class="box">{% render(controller('AppBundle:ScreenAdmin:listByExperiment', {'experiment': experiment.id})) %}</div>
 
-<div class="box">{% render "/admin/roles" %}</div>
+<div class="box">{% render(controller('AppBundle:RoleAdmin:listByExperiment', {'experiment': experiment.id})) %}</div>
 
 
 
