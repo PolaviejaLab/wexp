@@ -1,15 +1,36 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'form/form.html.twig' %}
 
 {% block body %}
 
-{% if experiment %}
-<p><h1>Create screen for <i>{{ experiment.name }}</i></h1></p>
-{% else %}
-<p><h1>Create screen</h1></p>
-{% endif %}
+<div class="page-header">
+	<h1>Create screen</h1>
+</div
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+<div class="container">
+
+	{{ form_start(form, {'attr': {'class': 'form-horizontal'}})  }}
+
+	{{ form_errors(form) }}
+	
+	{% if experiment %}
+	<div class="form-group">
+		<label>Experiment:</label>
+		<span class="form-control" readonly>{{ experiment.name }}</span>
+	</div>
+	{% else %}
+		{{ form_row(form.experiment) }}
+	{% endif %}
+
+	{{ form_row(form.name) }}
+	{{ form_row(form.source) }}
+
+	
+	<div class="form-group">
+     	 {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+	</div>
+     
+	{{ form_end(form) }}
+</div>
 
 {% endblock %}

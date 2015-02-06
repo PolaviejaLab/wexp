@@ -1,34 +1,51 @@
 
 <p><h2>Roles</h2></p>
 
-<table>
-	<tr>
-		<th>Id</th>
-		{% if not experiment %}
-		<th>Experiment</th>
-		{% endif %}
-		<th>Role</th>
-		<th>Count</th>
-	</tr>
+<div class="help-block">
+	<p>The web experiment platform supports mutliple participants, each
+	having its own role within the experiment. Control scripts determine 
+	how these roles affect the experiment.</p>
+</div> 
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Id</th>
+			{% if not experiment %}
+			<th>Experiment</th>
+			{% endif %}
+			<th>Role</th>
+			<th>Count</th>
+			<th></th>
+		</tr>
+	</thead>
 	
-	{% for role in roles %}
-	<tr>
+	<tbody>
+		{% for role in roles %}
+		<tr>
 		<td>{{ role.id }}</td>
 		{% if not experiment %}
 		<td><a href="{{ path('admin_experiment_view', {'experiment': role.experiment.id}) }}">{{ role.experiment.name }}</a>
 		{% endif %}
 		<td>{{ role.name }}</td>
 		<td>{{ role.amount }}</td>
-	</tr>
-	{% else %}
-	<tr>
-		<td colspan="2">No roles found</td>
-	</tr>
-	{% endfor %}
+			<td><a class="btn-sm btn-danger" href=""><i class="glyphicon glyphicon-trash"></i></a></td>
+		</tr>
+		{% else %}
+		<tr>
+			<td colspan="2">No roles found</td>
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 
-<p><a href="">Add new role</a></p>
-</div>
+		<p>			
+			<a class="btn btn-primary">
+				<i class="glyphicon glyphicon-plus"></i>
+				Role
+			</a>
+		</p>
+
 
 	<!-- protected $id;
 	protected $experiment;

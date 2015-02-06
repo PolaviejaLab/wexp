@@ -28,18 +28,6 @@ class ExperimentAdminController extends Controller
 
     
     /**
-     * @Route("/admin/experiment/{experiment}/edit", name="admin_experiment_edit")
-     */
-    public function editAction($experiment)
-    {
-    	$experiment = $this->getDoctrine()->getRepository("AppBundle:Experiment")->find($experiment);
-    	
-    	$screens = $experiment->getScreens();
-    	
-    	return $this->render('admin/experiment/edit.html.twig', array('experiment' => $experiment, 'screens' => $screens));
-    }
-    
-    /**
      * @Route("/admin/experiment/{experiment}", name="admin_experiment_view")
      */
     public function viewAction($experiment)

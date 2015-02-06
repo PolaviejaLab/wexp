@@ -34,6 +34,24 @@ class ScreenAdminController extends Controller
     }
     
 
+    private function getForm($screen, $experiment)
+    {
+    	$form = $this->createFormBuilder($screen)
+    		->add('name', 'text')
+    		->add('source', 'textarea')
+    		->getForm();
+    	
+    	if($experiment == null) {
+    		$form->add('experiment', 'entity', array(
+    				'class' => 'AppBundle:Experiment',
+    				'property' => 'name'
+    		));
+    	}
+
+    	return $form;
+    }
+    
+    
     /**
      * @Route("/admin/screen/create/{experiment}", name="admin_screen_create", defaults={"experiment" = null})
      */
@@ -44,42 +62,57 @@ class ScreenAdminController extends Controller
     	if($experiment) {
     		$experiment = $this->getDoctrine()->getRepository("AppBundle:Experiment")->find($experiment);
     		$screen->setExperiment($experiment);
-    	}    	
-    	
-    	$form = $this->createFormBuilder($screen)
-    		->add('name', 'text')
-    		->getForm();
-
-    	if($experiment == null) {
-    		$form->add('experiment', 'entity', array(
-    				'class' => 'AppBundle:Experiment',
-    				'property' => 'name'
-    		));    		
     	}
-    	
+
+    	// Create form
+    	$form = $this->getForm($screen, $experiment);
     	$form->add('save', 'submit', array('label' => 'Create screen'));
     	$form->handleRequest($request);
     	
+    	// Persist if valid
     	if($form->isValid()) {
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($screen);
     		$em->flush();
     		
-    		return $this->redirect($this->generateUrl('admin_screen_edit', array('screen' => $screen->getId())));
+    		return $this->redirect($this->generateUrl('admin_screen_edit', array('screen_id' => $screen->getId())));
     	}
-    	
+
     	return $this->render('admin/screen/create.html.twig', 
     			array('form' => $form->createView(), 'experiment' => $experiment));
     }
 
     
     /**
-     * @Route("/admin/screen/{screen}/edit", name="admin_screen_edit")
+     * @Route("/admin/screen/{screen_id}/edit", name="admin_screen_edit")
      */
-    public function editAction($screen)
+    public function editAction($screen_id, Request $request)
     {
-    	$screen = $this->getDoctrine()->getRepository("AppBundle:Screen")->find($screen);
+    	$screen = $this->getDoctrine()->getRepository("AppBundle:Screen")->find($screen_id);
     	
-    	return $this->render('admin/screen/edit.html.twig', array('screen' => $screen));
+    	if(!$screen) {
+    		return $this->render('error.html.twig', array(
+    				'object' => "screen #" . intval($screen_id),
+    				'message' => "The specified screen could not be found.",
+    		));
+    	}    	
+    	
+    	// Create form
+    	$form = $this->getForm($screen, null, $request);
+    	$form->add('save', 'submit', array('label' => 'Update screen'));
+    	$form->handleRequest($request);
+    	 
+    	// Persist if valid
+    	if($form->isValid()) {
+    		$em = $this->getDoctrine()->getManager();
+    		$em->persist($screen);
+    		$em->flush();
+    	
+    		return $this->redirect($this->generateUrl('admin_experiment_view', array('experiment' => $screen->getExperiment()->getId())));
+    	}
+    	
+    	return $this->render('admin/screen/edit.html.twig',
+    			array('form' => $form->createView(), 'experiment' => null));
+    	 
     }
 }

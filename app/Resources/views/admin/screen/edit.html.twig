@@ -1,44 +1,36 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'form/form.html.twig' %}
 
 {% block body %}
 
-<p><h1>Edit screen #{{ screen.id }}: <i>{{ screen.name }}</i></h1></p>
+<div class="page-header">
+	<h1>Edit screen</h1>
+</div
 
+<div class="container">
 
-<div style="float: right; margin-right: 50px;">
-<p><h2>Versions</h2></p>
-<table>
-	<tr>
-		<th>Id</th>
-		<th>Version</th>
-	</tr>
+	{{ form_start(form, {'attr': {'class': 'form-horizontal'}})  }}
+
+	{{ form_errors(form) }}
 	
-	{% for version in screen.screenVersions %}
-	<tr>
-		<td>{{ version.id }}</td>
-		<td>{{ version.timestamp }}</td>
-	</tr>
+	{% if experiment %}
+	<div class="form-group">
+		<label>Experiment:</label>
+		<span class="form-control" readonly>{{ experiment.name }}</span>
+	</div>
 	{% else %}
-	<tr>
-		<td colspan="2">No versions found</td>
-	</tr>
-	{% endfor %}
-</table>
-</div>
+		{{ form_row(form.experiment) }}
+	{% endif %}
 
+	{{ form_row(form.name) }}
+	{{ form_row(form.source) }}
 
-<div class="box">
-	<form method="post" action="{{ path('admin_screen_edit', {'screen': screen.id}) }}">
-	<p>
-		<textarea rows="40" cols="80">{% if screen.currentVersion %}{{ screen.currentVersion.contents }}{% else %}&lt;screen&gt;
-	&lt;h1&gt;Replace this with your own screen.&lt;/h1&gt;
-&lt;/screen&gt;{% endif %}</textarea>
-	</p>
-
-	<p>
-		<input type="submit" value="Update screen" />
-	</p>
-	</form>
+	
+	<div class="form-group">
+     	 {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+	</div>
+     
+	{{ form_end(form) }}
 </div>
 
 {% endblock %}

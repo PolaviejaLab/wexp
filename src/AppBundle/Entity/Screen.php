@@ -28,14 +28,10 @@ class Screen
 	protected $name = "";
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="ScreenVersion", mappedBy="screen")
+	 * @ORM\Column(type="text")
 	 */
-	protected $screenVersions;
+	protected $source;
 	
-	/**
-	 * @ORM\ManyToOne(targetEntity="ScreenVersion")
-	 */
-	protected $currentVersion;
 		
     /**
      * Get id
@@ -155,5 +151,28 @@ class Screen
     public function getCurrentVersion()
     {
         return $this->currentVersion;
+    }
+
+    /**
+     * Set source
+     *
+     * @param string $source
+     * @return Screen
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return string 
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 }

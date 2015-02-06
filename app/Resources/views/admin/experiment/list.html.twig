@@ -4,19 +4,28 @@
 
 <p><h1>Your experiments</h1></p>
 
-<table>
-	<tr>
-		<th>Experiment name</th>
-		<th>Edit</th>
-	</tr>
-{% for experiment in experiments %}
-	<tr>
-		<td>{{ experiment.name }}</td>
-		<td><a href="{{ path('admin_experiment_view', {'experiment': experiment.id}) }}">Edit</a></td>
-	</tr>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Experiment name</th>
+			<th>Edit</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for experiment in experiments %}
+		<tr>
+			<td>{{ experiment.name }}</td>
+			<td><a class="btn-sm btn-primary" href="{{ path('admin_experiment_view', {'experiment': experiment.id}) }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
+		</tr>
+	</tbody>
 {% endfor %}
 </table>
 
-<p><a href="{{ path('admin_experiment_create') }}">Create new experiment</a></p>
+<p>
+	<a class="btn btn-primary" href="{{ path('admin_experiment_create') }}">
+		<i class="glyphicon glyphicon-plus"></i> 
+		Experiment
+	</a>
+</p>
 
 {% endblock %}

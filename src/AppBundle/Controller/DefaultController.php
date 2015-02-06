@@ -14,13 +14,14 @@ class DefaultController extends Controller
     {
         return $this->render('default/index.html.twig');
     }
+
     
     /**
-     * @Route("/exp", name="exp_homepage")
+     * @Route("/admin", name="admin_dashboard")
      */    
     public function experimentAction()
     {
-    	if (false === $this->get('security.authorization_checker')->isGranted('ROLE_PARTICIPANT'))
+    	if (false === $this->get('security.authorization_checker')->isGranted('ROLE_RESEARCHER'))
     	{
     		throw $this->createAccessDeniedException();
     	}

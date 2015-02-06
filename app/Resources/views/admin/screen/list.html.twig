@@ -1,16 +1,23 @@
 
 <p><h2>Screens</h2></p>
 
-<table>
-	<tr>
-		<th>Id</th>
-		{% if not experiment %}
-		<th>Experiment</th>
-		{% endif %}
-		<th>Name</th>
-		<th>Last changed</th>
-		<th>Versions</th>
-	</tr>
+<div class="help-block">
+	<p>Every experiment is divided into screens, which can contain
+	instructions, questions, or interactive elements.</p>
+</div> 
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Id</th>
+			{% if not experiment %}
+			<th>Experiment</th>
+			{% endif %}
+			<th>Name</th>
+			<th>Last changed</th>
+		</tr>
+	</thead>
+	<tbody>
 {% for screen in screens %}
 	<tr>
 		<td>{{ screen.id }}</td>
@@ -22,19 +29,29 @@
 			{% endif %}
 		{% endif %}
 		
-		<td><a href="{{ path('admin_screen_edit', {'screen': screen.id}) }}">{{ screen.name }}</a></td>
+		<td><a href="{{ path('admin_screen_edit', {'screen_id': screen.id}) }}">{{ screen.name }}</a></td>
 		<td><!-- screen.last.timestamp --></td>
-		<td>{{ screen.screenVersions | length }} version(s)</td>
 	</tr>
 {% else %}
 	<tr>
 		<td colspan="4">No screens found</td>
 	</tr>
 {% endfor %}
+	</tbody>
 </table>
 
 {% if not experiment %}
-<p><a href="{{ path('admin_screen_create') }}">Create new screen</a></p>
+<p>			
+	<a class="btn btn-primary" href="{{ path('admin_screen_create') }}">
+		<i class="glyphicon glyphicon-plus"></i>
+		Screen
+	</a>
+</p>
 {% else %}
-<p><a href="{{ path('admin_screen_create', {'experiment': experiment.id}) }}">Create new screen</a></p>
+<p>
+	<a class="btn btn-primary" href="{{ path('admin_screen_create', {'experiment': experiment.id}) }}">
+		<i class="glyphicon glyphicon-plus"></i>
+		Screen
+	</a>
+</p>
 {% endif %}

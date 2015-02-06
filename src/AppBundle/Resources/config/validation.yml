@@ -1,0 +1,5 @@
+
+AppBundle\Entity\Screen:
+    properties:
+        name:
+            - NotBlank: ~

@@ -1,0 +1,64 @@
+<nav class="navbar navbar-inverse" ng-init="isCollapsed = true" ng-controller="MenuController">
+	<div class="container-fluid">
+    	<!-- Brand and toggle get grouped for better mobile display -->
+    	<div class="navbar-header" ng-click="toggleCollapsed()">
+      		<button type="button" class="navbar-toggle collapsed">
+        	<span class="sr-only">Toggle navigation</span>
+        	<span class="icon-bar"></span>
+        	<span class="icon-bar"></span>
+        	<span class="icon-bar"></span>
+      	</button>
+      	
+		{% if is_granted('ROLE_RESEARCHER') %}
+      		<a class="navbar-brand" href="{{ path('admin_dashboard') }}">CCU Experiments Platform</a>		
+      	{% else %}
+      		<a class="navbar-brand" href="{{ path('homepage') }}">CCU Experiments Platform</a>		
+      	{% endif %}
+    </div>
+
+    
+    
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" collapse="isCollapsed">
+		<ul class="nav navbar-nav">
+			<!-- <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>  -->
+
+			<li class="dropdown" ng-class="{ open: hasDroppedDown('experiments') }">
+				<a href="#" class="dropdown-toggle" ng-click="toggleDropdown('experiments')">Experiment <span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="{{ path('admin_experiments') }}">List experiments</a></li>
+					<li class="divider"></li>
+					<li><a href="#">Create new experiment</a></li>
+				</ul>
+			</li>
+		</ul>
+		
+		<ul class="nav navbar-nav navbar-right">
+    		<li class="dropdown" ng-class="{ open: hasDroppedDown('authentication') }">
+    			{%  if app.user %}
+    				<a ng-click="toggleDropdown('authentication')">User {{ app.user.username | capitalize }} <span class="caret"></span></a>
+    				    				
+    				<ul class="dropdown-menu">
+    					<li><a href="">User profile</a></li>
+    					<li class="divider"></li>
+    					<li><a href="{{ path('logout') }}">Logout</a></li>
+   					</ul>
+   					
+   				{% else %}
+   					<a href="{{ path('login') }}">Login</a>
+   				{% endif %}
+    		</li>    
+    		
+			<li class="dropdown" ng-class="{ open: hasDroppedDown('language') }">
+   				<a href="" ng-click="toggleDropdown('language')">{{ macros.country("en", "English") }} <span class="caret"></span></a>    				
+    				
+   				<ul class="dropdown-menu">
+   					<li><a href="">{{ macros.country("en", "English")}}</a></li>
+    				<li><a href="">{{ macros.country("pt", "Português")}}</a></li>
+    				<li><a href="">{{ macros.country("nl", "Nederlands")}}</a></li>
+    				<li><a href="">{{ macros.country("de", "Deutsch")}}</a></li>
+    			</ul>
+    		</li>
+    	</ul>
+	</div>
+</nav>
