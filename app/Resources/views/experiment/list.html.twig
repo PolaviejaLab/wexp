@@ -4,20 +4,24 @@
 
 <p><h1>Available experiments</h1></p>
 
-<table>
-	<tr>
-		<th></th>
-		<th>Experiment name</th>
-		<th>Researcher</th>
-		<th>Actions</th>
-	</tr>
-{% for experiment in experiments %}
-	<tr>
-		<td>{{ experiment.id }}</td>
-		<td>{{ experiment.name }}</td>
-		<td><a href="">{{ experiment.owners['0'].username|capitalize }}</a></td>
-		<td><a href="{{ path('experiment_lobby', {'id': experiment.id}) }}">Participate</a></td>
-	</tr>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Experiment name</th>
+			<th>Participate</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for experiment in experiments %}
+		<tr>
+			<td>{{ experiment.name }}</td>
+			<td>
+				<a class="btn-sm btn-primary" href="{{ path('experiment_lobby', {'id': experiment.id}) }}">
+					<i class="glyphicon glyphicon-play-circle"></i>
+				</a>
+			</td>
+		</tr>
+	</tbody>
 {% endfor %}
 </table>
 

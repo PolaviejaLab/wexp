@@ -9,7 +9,10 @@
 <div class="row">
 
 	<div class="col-md-4">{% render(controller('AppBundle:ScreenAdmin:listByExperiment', {'experiment': experiment.id})) %}</div>
+	
+	<!--
 	<div class="col-md-4">{% render(controller('AppBundle:RoleAdmin:listByExperiment', {'experiment': experiment.id})) %}</div>
+	-->
 
 	<!-- <div class="col-md-4">
 		<p><h2>Participation conditions</h2></p>
@@ -19,8 +22,10 @@
 		<p>
 			<a class="btn btn-primary">Add new rule</a>
 		</p>
-	</div>  -->
+	</div>  
+	-->
 
+	<!--
 	<div class="col-md-4">
 		<p><h2>Global scripts</h2></p>
 
@@ -53,50 +58,9 @@
 			</a>
 		</p>
 	</div>
+	-->
 
-	<div class="col-md-4">
-		<p><h2>Sessions</h2></p>
-
-		<div class="help-block">
-			<p>An overview of the current and past runs of the experiment.</p>
-		</div> 		
-		
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>Date</th>
-					<th>Status</th>
-					<th></th>
-				</tr>
-			</thead>
-	
-			<tbody>
-				<tr>
-					<td>2014-02-06 10:50</td><td>Running</td><td><a href="">View</a></td>
-				</tr>
-	
-				<tr>		
-					<td>2014-02-04 14:50</td><td>Finished</td><td><a href="">Results</a></td>
-				</tr>
-	
-				<tr>		
-					<td>2014-02-02 16:50</td><td>Aborted</td><td><a href="">Details</a></td>
-				</tr>
-	
-				<tr>		
-					<td>2014-02-01 12:50</td><td>Finished</td><td><a href="">Results</a></td>		
-				</tr>
-			</tbody>
-		</table>
-
-		<p>
-			<a class="btn btn-primary">
-				<i class="glyphicon glyphicon-download"></i>
-				Download dataset
-			</a>
-		</p>
-	</div>
-
+	<div class="col-md-4">{% render(controller('AppBundle:SessionAdmin:listByExperiment', {'experiment': experiment.id})) %}</div>
 </div>
 
 {% endblock %}

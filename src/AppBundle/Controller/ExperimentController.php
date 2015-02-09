@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+
 use AppBundle\Entity\Player;
+use AppBundle\Entity\Session;
 
 
 class ExperimentController extends Controller
@@ -21,6 +23,15 @@ class ExperimentController extends Controller
     }
 
     
+    /**
+     * @Route("/experiment/{id}/run/{session}", name="experiment_run")
+     */
+    public function runAction($id)
+    {
+    	return new Response("Ok");
+    }
+    
+    
     /** 
      * @Route("/experiment/{id}/lobby", name="experiment_lobby")
      */
@@ -35,17 +46,16 @@ class ExperimentController extends Controller
     	// Check if participant is eligible to participate in this experiment.    	
     	if(!$user)
     		return new Response("Invalid user ID");
-    	
-    	/* Check if an (unassigned) actor has already been created */
-		$player = $this->getDoctrine()->getRepository("AppBundle:Player")->findOneBy(
-				array('experiment' => $id, 'session' => null, 'role' => null, 'user' => $user->getId()));
-		
-		/* Register actor */
-    	if(!$player) {
-  	    	$player = new Player();
-    		$player->setExperiment($experiment);
+
+    	// Try to find pre-existing player assignment
+    	$player = $this->getDoctrine()->getRepository("AppBundle:Player")->findCurrentPlayer($experiment->getId(), $user->getId());
+
+    	// Create new player
+	   	if(!$player) {
+    		$player = new Player();
+   			$player->setExperiment($experiment);
 			$player->setUser($user);
-    	
+   	
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($player);
 			$em->flush();

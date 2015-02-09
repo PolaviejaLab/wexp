@@ -63,7 +63,7 @@ class MatchFunction
 			$count = count($session->getPlayers());
 				
 			if($count == $this->players_per_session) {
-				$session->setStatus(2);
+				$session->setStatus(1);
 				$session->setStarted(new \DateTime("now"));
 				$this->em->persist($session);
 				$this->em->flush();

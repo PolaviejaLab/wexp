@@ -38,7 +38,7 @@ class ScreenAdminController extends Controller
     {
     	$form = $this->createFormBuilder($screen)
     		->add('name', 'text')
-    		->add('source', 'textarea')
+    		->add('source', 'textarea', array('attr' => array('rows' => '15')))
     		->getForm();
     	
     	if($experiment == null) {

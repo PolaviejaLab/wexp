@@ -30,7 +30,7 @@ class Screen
 	/**
 	 * @ORM\Column(type="text")
 	 */
-	protected $source;
+	protected $source = "";
 	
 		
     /**
