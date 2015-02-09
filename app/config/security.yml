@@ -17,6 +17,12 @@ security:
             anonymous: ~
             http_basic: ~
             
+            remember_me:
+                key: "%secret%"
+                lifetime: 31536000
+                path: /
+                domain: ~
+            
             form_login:
                 login_path: /login
                 check_path: /login_check

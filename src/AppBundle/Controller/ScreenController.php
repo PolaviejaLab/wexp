@@ -22,6 +22,11 @@ class ScreenController extends Controller
     	$location = $this->get('kernel')->locateResource($resource);
     	$contents = file_get_contents($location);
     	
+    	return $this->parseXML($contents);
+    }
+    	
+    private function parseXML($contents)
+    {
     	libxml_use_internal_errors(true);
     	
     	$doc = new \DOMDocument();
@@ -47,7 +52,9 @@ class ScreenController extends Controller
      */
     public function compileAction($experiment_id, $screen_name)
     {
-    	$screen = $this->loadXML('@AppBundle/Resources/screen/screen.xml');
+    	$screen = $this->getDoctrine()->getRepository("AppBundle:Screen")->findOneByName($screen_name);    	
+    	$screen = $this->parseXML($screen->getSource());
+    	
     	$xsl = $this->loadXML('@AppBundle/Resources/screen/screen.xsl');
 
     	$xslt = new \XSLTProcessor();

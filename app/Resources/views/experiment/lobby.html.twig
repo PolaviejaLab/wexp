@@ -2,38 +2,25 @@
 
 {% block body %}
 
-<h1>Preparing experiment</h1>
-
-Player: {{ player.id }}<br />
-Experiment: {{ player.experiment.name }}<br />
-
-{% if player.session is null %}
-Session: not assigned
+<script>
+	var responseSink = "{{ path('experiment_sink', {'id': player.experiment.id, 'player': player.id}) }}";
+	var eventSource = "{{ path('experiment_sse', {'id': player.experiment.id, 'player': player.id}) }}";
+	
+{% if responses %}
+	var responses = {{ responses|raw }};
 {% else %}
-Session: {{ player.session.id }}
-{% endif %}
-
-	<script>
-	console.log("Connecting to SSE channel");
-	
-	var sse_location = "{{ path('experiment_sse') }}";
-	
-	var source = new EventSource(sse_location);
-	
-	source.addEventListener('message', function(e) {
-  		console.log(e.data);
-	}, false);
-	
-	source.onopen = function(event) {
-		console.log("SSE channel has been openend");
-		console.log(event);
-	};
-	
-	source.addEventListener("tick", function(event) {
-		console.log("Tick");
-	}, false);
-
-	console.log(source);
+	var responses = {};
+{% endif %}	
 </script>
+
+<div ng-controller="ExperimentController">
+
+	{% for screen in screens %}
+		<div ng-show="isVisible({{ screen.id }}, '{{ screen.name }}')">
+			{% render(controller('AppBundle:Screen:compile', {'experiment_id': player.experiment.id, 'screen_name': screen.name})) %}
+		</div>	
+	{% endfor %}
+
+</div>
 
 {% endblock %}

@@ -42,6 +42,11 @@ class Experiment
 	 */
 	protected $screens;
 	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Screen")
+	 */
+	protected $startScreen;
+	
     /**
      * Get id
      *
@@ -216,5 +221,28 @@ class Experiment
     public function getScreens()
     {
         return $this->screens;
+    }
+
+    /**
+     * Set startScreen
+     *
+     * @param \AppBundle\Entity\Screen $startScreen
+     * @return Experiment
+     */
+    public function setStartScreen(\AppBundle\Entity\Screen $startScreen = null)
+    {
+        $this->startScreen = $startScreen;
+
+        return $this;
+    }
+
+    /**
+     * Get startScreen
+     *
+     * @return \AppBundle\Entity\Screen 
+     */
+    public function getStartScreen()
+    {
+        return $this->startScreen;
     }
 }

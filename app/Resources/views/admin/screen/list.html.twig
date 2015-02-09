@@ -4,7 +4,7 @@
 <div class="help-block">
 	<p>Every experiment is divided into screens, which can contain
 	instructions, questions, or interactive elements.</p>
-</div> 
+</div>
 
 <table class="table table-hover">
 	<thead>
@@ -39,6 +39,21 @@
 {% endfor %}
 	</tbody>
 </table>
+
+{% if experiment %}
+<div class="form-field" ng-controller"ExperimentAdmin">
+	<label>
+		Initial screen:
+	</label>
+	
+	<select class="form-control">
+		{% for screen in screens %}
+		<option value="{{ screen.id }}">{{ screen.name }}</option>
+		{% endfor %}
+	</select>
+</div>	
+<br />
+{% endif %}
 
 {% if not experiment %}
 <p>			

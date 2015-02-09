@@ -112,7 +112,7 @@ class ScreenAdminController extends Controller
     	}
     	
     	return $this->render('admin/screen/edit.html.twig',
-    			array('form' => $form->createView(), 'experiment' => null));
+    			array('form' => $form->createView(), 'screen' => $screen, 'experiment' => null));
     	 
     }
 }

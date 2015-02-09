@@ -20,17 +20,17 @@ class Log
 	/**
 	 * @ORM\Column(type="datetime")
 	 */
-	protected $timestamp;
-	
-	/**
-	 * @ORM\ManyToOne(targetEntity="Session")
-	 */
-	protected $session;	
-	
+	protected $timestamp;	
+
 	/**
 	 * @ORM\ManyToOne(targetEntity="Player")
 	 */	
 	protected $player;
+	
+	/**
+	 * @ORM\Column(type="string", length=254)
+	 */
+	protected $field;
 	
 	/**
 	 * @ORM\Column(type="string", length=254)
@@ -137,5 +137,28 @@ class Log
     public function getPlayer()
     {
         return $this->player;
+    }
+
+    /**
+     * Set field
+     *
+     * @param string $field
+     * @return Log
+     */
+    public function setField($field)
+    {
+        $this->field = $field;
+
+        return $this;
+    }
+
+    /**
+     * Get field
+     *
+     * @return string 
+     */
+    public function getField()
+    {
+        return $this->field;
     }
 }

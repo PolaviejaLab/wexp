@@ -5,13 +5,18 @@
 
 <div class="page-header">
 	<h1>Edit screen</h1>
+	
+	<span ng-hide="editOptionals">
+	Screen <strong>{{ screen.name }}</strong> part of the <strong>{{ screen.experiment.name }}</strong> experiment. <a ng-click="editOptionals = 1">Click to change</a>.	
+	</span>
 </div
 
 <div class="container">
-
 	{{ form_start(form, {'attr': {'class': 'form-horizontal'}})  }}
 
 	{{ form_errors(form) }}
+	
+	<optional ng-show="editOptionals">
 	
 	{% if experiment %}
 	<div class="form-group">
@@ -23,8 +28,10 @@
 	{% endif %}
 
 	{{ form_row(form.name) }}
+	
+	</optional>
+	
 	{{ form_row(form.source) }}
-
 	
 	<div class="form-group">
      	 {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
