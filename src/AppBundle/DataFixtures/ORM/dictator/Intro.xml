@@ -3,5 +3,5 @@
 	
 	<p>In this experiment you will be doing X and Y and Z</p>
 	
-	<button>Start the experiment</button>
+	<button target="Personal Questions">Start the experiment</button>
 </screen>

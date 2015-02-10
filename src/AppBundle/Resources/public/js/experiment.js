@@ -3,6 +3,10 @@
 	var app = angular.module('experiment');
 	
 	
+	/**
+	 * Return items in n that have changed
+	 * with respect to o.
+	 */
 	function diff(o, n)
 	{
 		var i, 
@@ -28,8 +32,10 @@
 		
 		
 		// Notify server of updates
-		$scope.$watch("responses", function(newValue, oldValue) {	
+		$scope.$watch(function() { return $scope.responses; }, function(newValue, oldValue) {	
 			var d = diff(oldValue, newValue);
+			
+			console.log(d);
 			
 			$http.post(responseSink, d);
 		}, true);

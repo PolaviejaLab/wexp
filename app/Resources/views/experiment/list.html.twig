@@ -16,7 +16,7 @@
 		<tr>
 			<td>{{ experiment.name }}</td>
 			<td>
-				<a class="btn-sm btn-primary" href="{{ path('experiment_lobby', {'id': experiment.id}) }}">
+				<a class="btn-sm btn-primary" href="{{ path('experiment_run', {'experiment_id': experiment.id}) }}">
 					<i class="glyphicon glyphicon-play-circle"></i>
 				</a>
 			</td>

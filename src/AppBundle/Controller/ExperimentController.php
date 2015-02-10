@@ -77,54 +77,76 @@ class ExperimentController extends Controller
     
     
     /** 
-     * @Route("/experiment/{id}/lobby", name="experiment_lobby")
+     * @Route("/experiment/{experiment_id}/run/{player_id}", name="experiment_run", defaults={"player_id" = null})
      */
-    public function lobbyAction($id)
+    public function runAction($experiment_id, $player_id)
     {
-    	$experiment = $this->getDoctrine()->getRepository("AppBundle:Experiment")->find($id);
+    	$doc = $this->getDoctrine();
+    	$em = $doc->getManager();
+
+    	// Get experiment and user objects
+    	$experiment = $doc->getRepository('AppBundle:Experiment')->find($experiment_id);
     	$user = $this->getUser();
-
+    	
     	if(!$experiment)
-    		return $this->render('error.html.twig', 
-    			array('message' => 'The experiment you are trying to participate in no longer exists.'));
-    	
-    	// Check if participant is eligible to participate in this experiment.    	
-    	if(!$user)
-    		return $this->render('error.html.twig', 
-    			array('message' => 'You should be logged in to participate in an experiment.'));
+    		return $this->render('error.html.twig',
+    				array('message' => 'The experiment you are trying to participate in no longer exists.'));    	
 
-    	// Try to find pre-existing player assignment
-    	$player = $this->getDoctrine()->getRepository("AppBundle:Player")->findCurrentPlayer($experiment->getId(), $user->getId());
-	
-    	// Create new player
-	   	if(!$player) {
-    		$player = new Player();
-   			$player->setExperiment($experiment);
-			$player->setUser($user);
-   	
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($player);
-			$em->flush();
+
+    	/**
+    	 * No player ID passed, assign a player ID and reload
+    	 */
+    	if(!$player_id) {
+    		// Try to find existing player
+    		$player = $doc->getRepository("AppBundle:Player")
+    			->findCurrentPlayer($experiment->getId(), $user->getId());
+    		
+    		if(!$player) {
+    			$player = new Player();
+    			$player->setExperiment($experiment);
+    			$player->setUser($user);
+
+    			$em->persist($player);
+    			$em->flush();
+    		}
+
+    		$player_id = $player->getId();
+    		
+    		return $this->redirect(
+    				$this->generateUrl('experiment_run', 
+    						array('experiment_id' => $experiment_id, 'player_id' => $player_id)));
     	}
-		
-    	$screens = $this->getDoctrine()->getRepository("AppBundle:Screen")->findByExperiment($experiment);
+
+
+    	// Get information about player
+    	$player = $doc->getRepository('AppBundle:Player')->find($player_id);    	
     	
-    	// Previous responses as JSON
-    	$responses = $this->getDoctrine()->getRepository("AppBundle:Response")->findByPlayer($player);
+    	if(!$player)
+    		return $this->render('error.html.twig',
+    				array('message' => 'Invalid session / player identifier.'));
+
+
+		// Load all screens and previous responses		
+    	$screens = $doc->getRepository("AppBundle:Screen")->findByExperiment($experiment);
+    	$responses = $doc->getRepository("AppBundle:Response")->findByPlayer($player);
     	
+    	// Convert responses to JSON
     	$response_array = [];
-    	foreach($responses as $response) {
+    	foreach($responses as $response)
     		$response_array[$response->getField()] = $response->getValue();
-    	}
     	
-    	$responses = json_encode($response_array);
+    	if(empty($response_array)) {
+    		$responses = "{}";
+    	} else {
+    		$responses = json_encode($response_array);
+    	}
     	
     	
     	/**
-    	 * Render experiment page where the script will wait for a signal
-    	 * from the server that a session id is available.
+    	 * Render the experiment page
     	 */
-    	return $this->render('experiment/lobby.html.twig', array('screens' => $screens, 'player' => $player, 'responses' => $responses));
+    	return $this->render('experiment/lobby.html.twig', 
+    			array('screens' => $screens, 'player' => $player, 'responses' => $responses));
     }
     
     

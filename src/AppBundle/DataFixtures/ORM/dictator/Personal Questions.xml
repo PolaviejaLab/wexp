@@ -1,5 +1,5 @@
 <screen>
-<h2>Personal questions</h2>
+<h1>Personal questions</h1>
 
 <question name="gender">
 	<text>What is your gender?</text>
@@ -38,7 +38,7 @@
 </question>
 
 <br />
-<h2>More questions</h2>
+<h1>More questions</h1>
   
 <question_table>
 	<answer type="radio">
@@ -58,5 +58,6 @@
  
 <br />
 
-<button id="bt-continue">Continue to page 2</button> 
+<button target="Intro">Back to previous page</button>
+<button target="Final">Finish experiment</button> 
 </screen>
