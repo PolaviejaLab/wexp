@@ -40,21 +40,6 @@
 	</tbody>
 </table>
 
-{% if experiment %}
-<div class="form-field" ng-controller"ExperimentAdmin">
-	<label>
-		Initial screen:
-	</label>
-	
-	<select class="form-control">
-		{% for screen in screens %}
-		<option value="{{ screen.id }}">{{ screen.name }}</option>
-		{% endfor %}
-	</select>
-</div>	
-<br />
-{% endif %}
-
 {% if not experiment %}
 <p>			
 	<a class="btn btn-primary" href="{{ path('admin_screen_create') }}">

@@ -12,7 +12,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('default/index.html.twig');
+        return $this->redirect($this->generateUrl('experiments'));
     }
 
     
@@ -26,6 +26,6 @@ class DefaultController extends Controller
     		throw $this->createAccessDeniedException();
     	}
     	
-    	return $this->render('default/index.html.twig');
+    	return $this->redirect($this->generateUrl('admin_experiments'));
     }
 }

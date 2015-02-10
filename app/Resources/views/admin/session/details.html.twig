@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="page-header">
+	<h1>Results for participant #{{ player.id }}</h1>
+</div>
+
+<div class="container col-xs-6">
+
+<table class="table">
+	<tr>
+		<th>Field</th>
+		<th>Value</th>
+	</tr>
+{% for response in responses %}	
+	<tr>
+		<th>{{ response.field }}</th>
+		<td>{{ response.value }}</td>
+	</tr>
+{% endfor %}
+</table>
+
+</div>
+
+{% endblock %}

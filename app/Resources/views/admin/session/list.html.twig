@@ -17,8 +17,9 @@
 				<tr>
 					<td>{{ session.started|date('Y-m-d h:i') }}</td>
 					<td>
+						<a href="{{ path('admin_session_details', {'session': session.id}) }}">
 						{% if session.status == 0 %}
-							Awaiting actors
+							Waiting
 						{% endif %}
 						
 						{% if session.status == 1 %} 
@@ -27,7 +28,8 @@
 						
 						{% if session.status == 2 %}
 						Finished
-						{% endif %}						
+						{% endif %}
+						</a>
 					</td>
 				</tr>
 				{% endfor %}				

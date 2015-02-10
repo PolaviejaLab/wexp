@@ -98,8 +98,12 @@ class ExperimentController extends Controller
     	 */
     	if(!$player_id) {
     		// Try to find existing player
-    		$player = $doc->getRepository("AppBundle:Player")
-    			->findCurrentPlayer($experiment->getId(), $user->getId());
+    		if($user) {
+    			$player = $doc->getRepository("AppBundle:Player")
+    				->findCurrentPlayer($experiment->getId(), $user->getId());
+    		} else {
+    			$player = null;
+    		}
     		
     		if(!$player) {
     			$player = new Player();

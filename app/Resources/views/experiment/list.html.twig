@@ -9,6 +9,9 @@
 		<tr>
 			<th>Experiment name</th>
 			<th>Participate</th>
+			{% if is_granted('ROLE_RESEARCHER') %}
+			<th>Edit</th>
+			{% endif %}
 		</tr>
 	</thead>
 	<tbody>
@@ -17,9 +20,14 @@
 			<td>{{ experiment.name }}</td>
 			<td>
 				<a class="btn-sm btn-primary" href="{{ path('experiment_run', {'experiment_id': experiment.id}) }}">
-					<i class="glyphicon glyphicon-play-circle"></i>
+					<i class="glyphicon glyphicon-play"></i> &nbsp; Participate
 				</a>
 			</td>
+			{% if is_granted('ROLE_RESEARCHER') %}
+			<td><a class="btn-sm btn-primary" href="{{ path('admin_experiment_view', {'experiment': experiment.id}) }}">
+				<i class="glyphicon glyphicon-pencil"></i> &nbsp; Edit
+			</a></td>
+			{% endif %}
 		</tr>
 	</tbody>
 {% endfor %}

@@ -32,4 +32,17 @@ class SessionAdminController extends Controller
     	 
     	return $this->render('admin/session/list.html.twig', array('sessions' => $sessions, 'experiment' => $experiment));    	 
     }
+    
+    /**
+     * @Route("/admin/session/{session}/details", name="admin_session_details")
+     */
+    public function detailsAction($session) 
+    {
+    	$session = $this->getDoctrine()->getRepository("AppBundle:Session")->find($session);
+    	$player = $this->getDoctrine()->getRepository("AppBundle:Player")->findBySession($session);
+    	$responses = $this->getDoctrine()->getRepository("AppBundle:Response")->findByPlayer($player);
+    	
+    	return $this->render('admin/session/details.html.twig', array('session' => $session, 'player' => $player[0], 'responses' => $responses));    	
+    }
+    
 }

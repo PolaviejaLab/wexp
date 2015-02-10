@@ -28,7 +28,7 @@
 		// Load responses from parent javascript
 		$scope.responses = responses;
 		
-		var currentScreen = 2;
+		var currentScreen = 'Intro';
 		
 		
 		// Notify server of updates

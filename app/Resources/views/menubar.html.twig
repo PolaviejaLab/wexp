@@ -10,9 +10,9 @@
       	</button>
       	
 		{% if is_granted('ROLE_RESEARCHER') %}
-      		<a class="navbar-brand" href="{{ path('admin_dashboard') }}">CCU Experiments Platform</a>		
+      		<a class="navbar-brand" href="{{ path('admin_dashboard') }}">Home</a>		
       	{% else %}
-      		<a class="navbar-brand" href="{{ path('homepage') }}">CCU Experiments Platform</a>		
+      		<a class="navbar-brand" href="{{ path('homepage') }}">Home</a>		
       	{% endif %}
     </div>
 
