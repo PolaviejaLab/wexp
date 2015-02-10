@@ -106,9 +106,18 @@ class ExperimentController extends Controller
     		}
     		
     		if(!$player) {
+    			$session = new Session();
+    			$session->setExperiment($experiment);
+    			$session->setStarted(new \DateTime('now'));
+    			$session->setStatus(1);
+    			
+    			$em->persist($session);
+    			$em->flush();
+    			
     			$player = new Player();
     			$player->setExperiment($experiment);
     			$player->setUser($user);
+    			$player->setSession($session);
 
     			$em->persist($player);
     			$em->flush();

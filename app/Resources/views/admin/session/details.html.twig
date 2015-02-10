@@ -3,10 +3,24 @@
 {% block body %}
 
 <div class="page-header">
-	<h1>Results for participant #{{ player.id }}</h1>
+	<h1>Session #{{ session.id }} details</h1>
+
+	<p>
+		This session of the 
+		<strong><a href="{{ path('admin_experiment_view', {'experiment': session.experiment.id}) }}">{{ session.experiment.name }}</a></strong> 
+		started on <strong>{{ session.started | date }}</strong> and
+		
+		{% if session.status == 2 %}
+		finished on <strong>{{ session.stopped | date }}</strong>.
+		{% else %}
+		is <strong>still running</strong>.
+		{% endif %}
+	</p>	
 </div>
 
 <div class="container col-xs-6">
+
+<h2>Responses</h2>
 
 <table class="table">
 	<tr>
@@ -20,6 +34,8 @@
 	</tr>
 {% endfor %}
 </table>
+
+	<a class="btn btn-primary" href="{{ path('admin_experiment_view', {'experiment': session.experiment.id}) }}">Back to experiment</a>
 
 </div>
 
