@@ -10,17 +10,11 @@
 	</answer>
 </question>
 
-<br />
-<br />
- 
 <question name="age">
  	<text>What is your age?</text> 		
 	<answer type="number" required="true" min="1" max="150" step="1"></answer>
 </question>
 
-<br />
-<br />
- 
 <question name="car">
 	<text>What kind of car do you drive?</text>
 
@@ -37,7 +31,6 @@
 	</answer>
 </question>
 
-<br />
 <h1>More questions</h1>
   
 <question_table>
@@ -55,9 +48,7 @@
 		<question name="q2"><text>I enjoy the exhilaration of being in unpredictable situations.</text></question>
 	</questions>
 </question_table>
- 
-<br />
 
-<button target="Intro">Back to previous page</button>
-<button target="Final">Finish experiment</button> 
+<button target="Intro">Previous page</button>
+<button target="IQ Test">Continue experiment</button> 
 </screen>

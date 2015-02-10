@@ -6,6 +6,15 @@
 	</xsl:template>
 
 
+	<xsl:template match="p">
+		<p><xsl:apply-templates /></p>
+	</xsl:template>
+
+	<xsl:template match="br">
+		<br></br>
+	</xsl:template>
+
+
 	<xsl:template match="h1">
 		<div class="page-header">
 			<h1><xsl:value-of select="." /></h1>
