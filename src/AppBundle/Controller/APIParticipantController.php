@@ -20,12 +20,12 @@ class APIParticipantController extends Controller
 {	
 
 	/**
-	 * @Route("/api/participant/{participant}/source", name="api_participant_source")
+	 * @Route("/api/participant/{participant_uuid}/source", name="api_participant_source")
 	 * 
 	 * Interface for server sent events, that is push notifications from
 	 * the server to the client.
 	 */
-	public function sseAction($participant)
+	public function sseAction($participant_uuid)
 	{
 		$response = new \Symfony\Component\HttpFoundation\StreamedResponse(function() {
 			ob_implicit_flush(true);
@@ -46,12 +46,12 @@ class APIParticipantController extends Controller
 	
 
     /**
-     * @Route("/api/participant/{participant}/sink", name="api_participant_sink")
+     * @Route("/api/participant/{participant_uuid}/sink", name="api_participant_sink")
      * 
      * Interface that allows the client to report state back
      * to the server while the experiment is running.
      */
-    public function sinkAction($participant)
+    public function sinkAction($participant_uuid)
     {	
     	$doc = $this->getDoctrine();
     	
@@ -74,7 +74,7 @@ class APIParticipantController extends Controller
     	
     	// Find participant
     	try {
-			$participant = $this->getParticipantByUuid($participant);
+			$participant = $this->getParticipantByUuid($participant_uuid);
     	} catch(Response $r) {
     		return $r;
     	}
