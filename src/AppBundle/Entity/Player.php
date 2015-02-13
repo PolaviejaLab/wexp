@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Helpers\UUID;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PlayerRepository")
@@ -16,7 +17,12 @@ class Player
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
-	
+
+	/**
+	 * @ORM\Column(type="string", length=36)
+	 */
+	protected $uuid;
+
 	/**
 	 * @ORM\ManyToOne(targetEntity="Experiment")
 	 */
@@ -37,6 +43,17 @@ class Player
 	 */
 	protected $user;
 	
+	
+	/**
+	 * Generate a unique identifier for the entity
+	 * when the object is created.
+	 */
+	public function __construct()
+	{
+		$this->uuid = UUID::generateUUID();
+	}
+
+
     /**
      * Get id
      *
@@ -46,6 +63,7 @@ class Player
     {
         return $this->id;
     }
+
 
     /**
      * Set experiment
@@ -60,6 +78,7 @@ class Player
         return $this;
     }
 
+
     /**
      * Get experiment
      *
@@ -69,6 +88,7 @@ class Player
     {
         return $this->experiment;
     }
+
 
     /**
      * Set session
@@ -83,6 +103,7 @@ class Player
         return $this;
     }
 
+
     /**
      * Get session
      *
@@ -92,6 +113,7 @@ class Player
     {
         return $this->session;
     }
+
 
     /**
      * Set role
@@ -106,6 +128,7 @@ class Player
         return $this;
     }
 
+
     /**
      * Get role
      *
@@ -115,6 +138,7 @@ class Player
     {
         return $this->role;
     }
+
 
     /**
      * Set user
@@ -129,6 +153,7 @@ class Player
         return $this;
     }
 
+
     /**
      * Get user
      *
@@ -137,5 +162,30 @@ class Player
     public function getUser()
     {
         return $this->user;
+    }
+
+
+    /**
+     * Set uuid
+     *
+     * @param string $uuid
+     * @return Player
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
+
+        return $this;
+    }
+
+
+    /**
+     * Get uuid
+     *
+     * @return string 
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
     }
 }

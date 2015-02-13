@@ -24,56 +24,7 @@ class ExperimentController extends Controller
     }
 
 
-    /**
-     * @Route("/experiment/{id}/run/{player}/sink", name="experiment_sink")
-     */
-    public function sinkAction($id, $player)
-    {   	
-    	$content = $this->get("request")->getContent();
-    	
-    	if(!empty($content)) {
-    		$experiment = $this->getDoctrine()->getRepository("AppBundle:Experiment")->find($id);
-    		$player = $this->getDoctrine()->getRepository("AppBundle:Player")->find($player);
-    		$user = $this->getUser();    		
-    		
-    		$em = $this->getDoctrine()->getManager();    		
-    		
-    		$data = json_decode($content, true);
-    		
-    		$responseRepository = $this->getDoctrine()->getRepository("AppBundle:Response");
-    		$now = new \Datetime('NOW');
-    		
-    		// id timestamp player field value
-    		foreach($data as $field => $value) {
-    			// Write log
-				$entry = new Log();
-				$entry->setTimestamp($now);
-				$entry->setPlayer($player);
-				$entry->setField($field);
-				$entry->setMessage("U: " . $value);
-				
-				$em->persist($entry);
-    			
-    			// Update response
-    			$response = $responseRepository->findOneBy(
-    					array('player' => $player, 'field' => $field));
-    			 
-    			if(!$response) {
-    				$response = new AppResponse();
-    				$response->setPlayer($player);
-    				$response->setField($field);
-    			}
-    			
-    			$response->setTimestamp($now);
-    			$response->setValue($value);
-    			
-    			$em->persist($response);
-    			$em->flush();
-    		}
-    	}
-    	
-    	return new Response("{}");
-    }
+
     
     
     /** 
@@ -123,7 +74,7 @@ class ExperimentController extends Controller
     			$em->flush();
     		}
 
-    		$player_id = $player->getId();
+    		$player_id = $player->getUuid();
     		
     		return $this->redirect(
     				$this->generateUrl('experiment_run', 
@@ -132,11 +83,13 @@ class ExperimentController extends Controller
 
 
     	// Get information about player
-    	$player = $doc->getRepository('AppBundle:Player')->find($player_id);    	
-    	
-    	if(!$player)
+    	$players = $doc->getRepository('AppBundle:Player')->findByUuid($player_id);    	
+    	$player = $players[0];
+    	    	
+    	if(!$player) {
     		return $this->render('error.html.twig',
     				array('message' => 'Invalid session / player identifier.'));
+    	}
 
 
 		// Load all screens and previous responses		
@@ -153,8 +106,7 @@ class ExperimentController extends Controller
     	} else {
     		$responses = json_encode($response_array);
     	}
-    	
-    	
+    	    	
     	/**
     	 * Render the experiment page
     	 */
@@ -173,25 +125,5 @@ class ExperimentController extends Controller
     }
     
     
-    /**
-     * @Route("/experiment/{id}/run/{player}/sse", name="experiment_sse")
-     */
-    public function sseAction($id, $player)
-    {
-    	$response = new \Symfony\Component\HttpFoundation\StreamedResponse(function() {
-    		ob_implicit_flush(true);
 
-    		$i = 0;
-
-    		while(true) {
-    			$this->sendMessage($i++, "Server time: " . microtime(true));
-    			sleep(1);
-    		}
-    	});
-    	
-    	$response->headers->set('Content-Type', 'text/event-stream');
-    	$response->headers->set('Cache-Control', 'no-cache');
-    			
-		return $response;
-    }
 }

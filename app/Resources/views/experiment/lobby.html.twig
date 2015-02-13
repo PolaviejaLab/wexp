@@ -3,8 +3,8 @@
 {% block body %}
 
 <script>
-	var responseSink = "{{ path('experiment_sink', {'id': player.experiment.id, 'player': player.id}) }}";
-	var eventSource = "{{ path('experiment_sse', {'id': player.experiment.id, 'player': player.id}) }}";
+	var responseSink = "{{ path('api_participant_sink', {'participant': player.uuid}) }}";
+	var eventSource = "{{ path('api_participant_source', {'participant': player.uuid}) }}";
 	
 {% if responses %}
 	var responses = {{ responses|raw }};
