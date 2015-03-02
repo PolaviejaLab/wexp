@@ -11,9 +11,13 @@
 		protected $errorString = "";
 		
 		
+		/**
+		 * Attempt to decode JSON.
+		 * @param $string JSON encoded string
+		 */
 		function __construct($string) {
 			$this->errorCode = JSON_ERROR_NONE;
-			$this->data = json_decode($string);
+			$this->data = json_decode($string, true);
 			
 			if($this->data == NULL) {
 				$this->errorCode = json_last_error();
@@ -21,24 +25,40 @@
 		}
 		
 		
+		/**
+		 * Returns true if JSON is valid.
+		 * @return boolean
+		 */
 		public function isValid()
 		{
 			return $this->errorCode == JSON_ERROR_NONE;
 		}
 		
 		
+		/**
+		 * Returns JSON error as a human readable string
+		 * @return string 
+		 */
 		public function getErrorString()
 		{
 			return self::ErrorToString($this->errorCode);
 		}
 		
 		
+		/**
+		 * Returns the json_decode error code.
+		 * @return int
+		 */
 		public function getErrorCode()
 		{
 			return $this->errorCode;
 		}
 		
 		
+		/**
+		 * Returns the decoded JSON.
+		 * @return array
+		 */
 		public function getData()
 		{
 			return $this->data;

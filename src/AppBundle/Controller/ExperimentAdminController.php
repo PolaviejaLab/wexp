@@ -37,5 +37,6 @@ class ExperimentAdminController extends Controller
     	$screens = $experiment->getScreens();
     	 
     	return $this->render('admin/experiment/view.html.twig', array('experiment' => $experiment, 'screens' => $screens));
-    }    
+    }
+
 }

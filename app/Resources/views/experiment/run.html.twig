@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<script>
+	var responseSink = "{{ path('api_participant_sink', {'participant_uuid': participant.uuid}) }}";
+	var eventSource = "{{ path('api_participant_source', {'participant_uuid': participant.uuid}) }}";
+	var finishUrl = "{{ path('api_participant_finish', {'participant_uuid': participant.uuid}) }}";
+{% if responses %}
+	var responses = {{ responses|raw }};
+{% else %}
+	var responses = {};
+{% endif %}	
+</script>
+
+<div ng-controller="ExperimentController">
+
+	{% for screen in screens %}
+		<div ng-show="isVisible({{ screen.id }}, '{{ screen.name }}')">
+			{% render(controller('AppBundle:Screen:compile', {'experiment_id': participant.experiment.id, 'screen_name': screen.name})) %}
+		</div>	
+	{% endfor %}
+
+</div>
+
+{% endblock %}

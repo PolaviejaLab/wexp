@@ -17,7 +17,26 @@ use AppBundle\Helpers\JSON;
  * between the client and the server during an experiment. 
  */
 class APIParticipantController extends Controller
-{	
+{
+	/**
+	 * @Route("/api/participant/{participant_uuid}/finish", name="api_participant_finish")
+	 */	
+	public function finishAction($participant_uuid)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+		$participant = $this->getParticipantByUuid($participant_uuid);		
+		$session = $participant->getSession();
+		
+		$status = $session->getStatus();
+		
+		if($status < 2) {
+			$session->setStatus(2);
+			$session->setStopped(new \DateTime('now'));
+			$em->persist($session);
+			$em->flush();
+		}
+	}
+	
 
 	/**
 	 * @Route("/api/participant/{participant_uuid}/source", name="api_participant_source")
@@ -68,17 +87,31 @@ class APIParticipantController extends Controller
     	$data = $json->getData();
     	
     	if(!is_array($data)) {
-    		$response = array('errorString' => "Expected JSON to encode an array");
+    		$response = array(
+    				'errorString' => "Expected JSON to encode an array", 
+    				'type' => gettype($data));
     		return new Response(json_encode($response));
     	}
     	
     	// Find participant
     	try {
 			$participant = $this->getParticipantByUuid($participant_uuid);
-    	} catch(Response $r) {
-    		return $r;
+    	} catch(\Exception $r) {
+    		return new Response(json_encode(array(
+   				"errorString" => $r->getMessage()
+    		)));
     	}
 
+    	$session = $participant->getSession();    	
+    	$status = $session->getStatus();
+    	
+    	if($status == 2) {
+    		return new Response(json_encode(array(
+    			"errorString" => "The referenced experimental session has finished."	
+    		)));
+    	}
+    	 
+    	
 		// Insert updates into the database
     	foreach($data as $field => $value)
 			$this->updateResponse($participant, $field, $value);
@@ -101,18 +134,14 @@ class APIParticipantController extends Controller
     	// Retreive participant object
     	$participant = $doc->getRepository("AppBundle:Player")->findByUuid($participant);
     
-    	if(count($participant) == 0) {
-    		$response = array('errorString' => "Invalid participant identifier.");
-    		throw new Response(json_encode($response));
-    	}
+    	if(count($participant) == 0)
+    		throw new \Exception("Invalid participant identifier.");
     		
     	$participant = $participant[0];
     
     	// Check if session is still active
-    	if($participant->getSession()->getStatus() > 1) {
-    		$response = array('errorString' => "You are no longer participating in this experiment.");
-    		throw new Response(json_encode($response));
-    	}
+    	if($participant->getSession()->getStatus() > 1)
+    		throw new \Exception("You are no longer participating in this experiment.");
     
     	return $participant;
     }
@@ -146,20 +175,20 @@ class APIParticipantController extends Controller
     
     	$entry = new Log();
     	$entry->setTimestamp($timestamp);
-    	$entry->setPlayer($player);
+    	$entry->setPlayer($participant);
     	$entry->setField($field);
     	$entry->setMessage("U: " . $value);
     
     	$em->persist($entry);
     
     	// Find previous response
-    	$response = $this->getResponseRepository->findOneBy(
+    	$response = $this->getResponseRepository()->findOneBy(
     			array('player' => $participant, 'field' => $field));
     
     	// Create new response if previous ones were found
     	if(!$response) {
     		$response = new AppResponse();
-    		$response->setPlayer($player);
+    		$response->setPlayer($participant);
     		$response->setField($field);
     	}
     

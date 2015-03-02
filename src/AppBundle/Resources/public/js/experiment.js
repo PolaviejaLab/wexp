@@ -48,6 +48,10 @@
 		
 		$scope.changeScreen = function(name) {
 			currentScreen = name;
+			
+			if(currentScreen == 'Final') {
+				$http.post(finishUrl);
+			}			
 		}
 		
 	
