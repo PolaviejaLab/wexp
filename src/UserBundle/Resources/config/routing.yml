@@ -1,9 +1,15 @@
 login:
-    path: /login
+    path: /{_locale}/login
     defaults: { _controller: UserBundle:User:login }
+    requirements:
+        _locale: "%app.locales%"
 
 login_check:
-    path: /login_check    
+    path: /login_check
+    requirements:
+        _locale: "%app.locales%"
 
 logout:
     path: /logout
+    requirements:
+        _locale: "%app.locales%"

@@ -3,6 +3,9 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
 
+parameters:
+    app.locales: en|pt|nl|de|es
+
 framework:
     #esi:             ~
     #translator:      { fallback: "%locale%" }
@@ -24,6 +27,7 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    translator: { fallbacks: [en] }
 
 # Twig Configuration
 twig:

@@ -2,15 +2,15 @@
 
 {% block body %}
 
-<p><h1>Available experiments</h1></p>
+<p><h1>{% trans %}Available experiments{% endtrans %}</h1></p>
 
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th>Experiment name</th>
-			<th>Participate</th>
+			<th>{% trans %}Experiment name{% endtrans %}</th>
+			<th>{% trans %}Participate{% endtrans %}</th>
 			{% if is_granted('ROLE_RESEARCHER') %}
-			<th>Edit</th>
+			<th>{% trans %}Edit{% endtrans %}</th>
 			{% endif %}
 		</tr>
 	</thead>
@@ -20,12 +20,12 @@
 			<td>{{ experiment.name }}</td>
 			<td>
 				<a class="btn-sm btn-primary" href="{{ path('experiment_run', {'experiment_id': experiment.id}) }}">
-					<i class="glyphicon glyphicon-play"></i> &nbsp; Participate
+					<i class="glyphicon glyphicon-play"></i> &nbsp; {% trans %}Participate{% endtrans %}
 				</a>
 			</td>
 			{% if is_granted('ROLE_RESEARCHER') %}
 			<td><a class="btn-sm btn-primary" href="{{ path('admin_experiment_view', {'experiment': experiment.id}) }}">
-				<i class="glyphicon glyphicon-pencil"></i> &nbsp; Edit
+				<i class="glyphicon glyphicon-pencil"></i> &nbsp; {% trans %}Edit{% endtrans %}
 			</a></td>
 			{% endif %}
 		</tr>

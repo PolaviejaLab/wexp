@@ -1,0 +1,19 @@
+
+# Default controller
+homepage:
+  path: /{_locale}
+  defaults: { _controller: AppBundle:Default:index }
+  requirements:
+      _locale: "%app.locales%"
+
+experiments:
+  path: /{_locale}/experiment/list
+  defaults: { _controller: AppBundle:Experiment:list }
+  requirements:
+      _locale: "%app.locales%"
+
+experiment_run:
+  path: /{_locale}/experiment/{experiment_id}/run/{participant_uuid}
+  defaults: { _controller: AppBundle:Experiment:run, participant_uuid: null }
+  requirements:
+      _locale: "%app.locales%"

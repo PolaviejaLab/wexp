@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+          <trans-unit id="1">
+              <source>Existing accounts</source>
+              <target>Bestaande gebruikers</target>
+          </trans-unit>
+
+          <trans-unit id="2">
+              <source>Login</source>
+              <target>Inloggen</target>
+          </trans-unit>
+
+          <trans-unit id="3">
+              <source>Experiment</source>
+              <target>Experiment</target>
+          </trans-unit>
+
+          <trans-unit id="4">
+              <source>Home</source>
+              <target>Beginscherm</target>
+          </trans-unit>
+
+          <trans-unit id="5">
+              <source>Username</source>
+              <target>Gebruikersnaam</target>
+          </trans-unit>
+
+          <trans-unit id="6">
+              <source>Password</source>
+              <target>Wachtwoord</target>
+          </trans-unit>
+
+          <trans-unit id="7">
+              <source>Keep me logged in</source>
+              <target>Ik wil ingelogd blijven</target>
+          </trans-unit>
+
+          <trans-unit id="8">
+              <source>User profile</source>
+              <target>Gebruikersprofiel</target>
+          </trans-unit>
+
+          <trans-unit id="9">
+              <source>Logout</source>
+              <target>Uitloggen</target>
+          </trans-unit>
+
+          <trans-unit id="10">
+              <source>User</source>
+              <target>Gebruiker</target>
+          </trans-unit>
+        </body>
+    </file>
+</xliff>
