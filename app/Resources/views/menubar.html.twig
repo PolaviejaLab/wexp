@@ -61,14 +61,26 @@
     		</li>
 
 			<li class="dropdown" ng-class="{ open: hasDroppedDown('language') }">
-   				<a href="" ng-click="toggleDropdown('language')">{{ macros.country("en", "English") }} <span class="caret"></span></a>
+   				<a href="" ng-click="toggleDropdown('language')">
+   				{% if app.request.locale == "en" %}
+   					{{ macros.country("en", "English") }}
+   				{% elseif app.request.locale == "pt" %}
+   					{{ macros.country("pt", "Português") }}
+   				{% elseif app.request.locale == "nl" %}
+   					{{ macros.country("nl", "Nederlands") }}
+   				{% elseif app.request.locale == "es" %}
+   					{{ macros.country("es", "Español") }}
+   				{% endif %} 
+   				<span class="caret"></span></a>
 
    				<ul class="dropdown-menu">
    					<li><a href="{{ path(app.request.get('_route'), {'_locale': 'en'}) }}">{{ macros.country("en", "English")}}</a></li>
     				<li><a href="{{ path(app.request.get('_route'), {'_locale': 'pt'}) }}">{{ macros.country("pt", "Português")}}</a></li>
-    				<li><a href="{{ path(app.request.get('_route'), {'_locale': 'nl'}) }}">{{ macros.country("nl", "Nederlands")}}</a></li>
-    				<li><a href="{{ path(app.request.get('_route'), {'_locale': 'de'}) }}">{{ macros.country("de", "Deutsch")}}</a></li>
+    				<!-- 
+    					<li><a href="{{ path(app.request.get('_route'), {'_locale': 'nl'}) }}">{{ macros.country("nl", "Nederlands")}}</a></li>
+    					<li><a href="{{ path(app.request.get('_route'), {'_locale': 'de'}) }}">{{ macros.country("de", "Deutsch")}}</a></li>
 						<li><a href="{{ path(app.request.get('_route'), {'_locale': 'es'}) }}">{{ macros.country("es", "Español")}}</a></li>
+					-->
     			</ul>
     		</li>
     	</ul>
