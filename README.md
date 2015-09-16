@@ -6,6 +6,10 @@ Web application for running simple experiments.
 Installation
 ------------
 
+Install PHP5 MySQL driver.
+
+    apt-get install php5-mysql
+
 Set the **wexp/web** as the document root of your site. Then use composer to update the project. In case you forget this, an error concerning **bootstrap.php.cache** will occur.
 
     composer update
