@@ -39,7 +39,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
 		$researcher = new User();
 		$researcher->setUserName("researcher");
-		$researcher->setPassword('$2a$12$E.XrecDCBlTLsTa6pMnk2.SJbLlrJJD0A/YcdBbXRZX7GOFf6MGwS');
+		$researcher->setPassword('$2a$12$7tLZIx.wHIjqmP8OrGAjxuilWqGZwZfpKrWYEOB1LPnoXVimdOlgm');
 		$researcher->addRole($researcher_role);
 
 		$user = new User();

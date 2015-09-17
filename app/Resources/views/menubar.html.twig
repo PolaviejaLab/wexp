@@ -9,13 +9,12 @@
         	<span class="icon-bar"></span>
       	</button>
 
-				{% if is_granted('ROLE_RESEARCHER') %}
+		{% if is_granted('ROLE_RESEARCHER') %}
       		<a class="navbar-brand" href="{{ path('admin_dashboard') }}">{% trans %}Home{% endtrans %}</a>
       	{% else %}
       		<a class="navbar-brand" href="{{ path('homepage') }}">{% trans %}Home{% endtrans %}</a>
       	{% endif %}
     </div>
-
 
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -74,13 +73,8 @@
    				<span class="caret"></span></a>
 
    				<ul class="dropdown-menu">
-   					<li><a href="{{ path(app.request.get('_route'), {'_locale': 'en'}) }}">{{ macros.country("en", "English")}}</a></li>
-    				<li><a href="{{ path(app.request.get('_route'), {'_locale': 'pt'}) }}">{{ macros.country("pt", "Português")}}</a></li>
-    				<!-- 
-    					<li><a href="{{ path(app.request.get('_route'), {'_locale': 'nl'}) }}">{{ macros.country("nl", "Nederlands")}}</a></li>
-    					<li><a href="{{ path(app.request.get('_route'), {'_locale': 'de'}) }}">{{ macros.country("de", "Deutsch")}}</a></li>
-						<li><a href="{{ path(app.request.get('_route'), {'_locale': 'es'}) }}">{{ macros.country("es", "Español")}}</a></li>
-					-->
+   					<li>{{ macros.locale_switcher("en", "English")}}</li>
+    				<li>{{ macros.locale_switcher("pt", "Português")}}</li>
     			</ul>
     		</li>
     	</ul>

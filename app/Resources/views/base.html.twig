@@ -2,7 +2,18 @@
 <img class="language-flag" src="{{ asset('bundles/app/images/flags/' ~ abbr ~ '.png') }}" /> {{ name }}
 {% endmacro %}
 
+{% macro locale_switcher(abbr, name) %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set route_params = route_params|merge(app.request.query.all) %}
+{% set route_params = route_params|merge({'_locale': abbr}) %}
+<a href="{{ path(app.request.attributes.get('_route'), route_params) }}">
+<img class="language-flag" src="{{ asset('bundles/app/images/flags/' ~ abbr ~ '.png') }}" /> {{ name }}
+</a>
+{% endmacro %}
+
+
 {% import _self as macros %}
+
 
 <!DOCTYPE html>
 <html ng-app="experiment">

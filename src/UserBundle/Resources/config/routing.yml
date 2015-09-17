@@ -5,11 +5,11 @@ login:
         _locale: "%app.locales%"
 
 login_check:
-    path: /login_check
+    path: /{_locale}/login_check
     requirements:
         _locale: "%app.locales%"
 
 logout:
-    path: /logout
+    path: /{_locale}/logout
     requirements:
         _locale: "%app.locales%"
