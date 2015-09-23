@@ -28,6 +28,11 @@ class Experiment
 	protected $name = "New experiment";
 
 	/**
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $deleted = false;
+	
+	/**
 	 * @ORM\OneToMany(targetEntity="Role", mappedBy="experiment")	 
 	 */
 	protected $roles;
@@ -114,6 +119,21 @@ class Experiment
         $this->owners->removeElement($owners);
     }
 
+    /**
+     * Checks whether the user is an owner
+     * 
+     * @param \UserBundle\Entity\User $user
+     */
+    public function isOwner(\UserBundle\Entity\User $user)
+    {
+    	foreach($this->owners as $owner) {
+    		if($owner->getUsername() == $user->getUsername())
+    			return true;
+    	}
+    	
+    	return false;
+    }
+    
     /**
      * Get owners
      *
@@ -244,5 +264,29 @@ class Experiment
     public function getStartScreen()
     {
         return $this->startScreen;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     *
+     * @return Experiment
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

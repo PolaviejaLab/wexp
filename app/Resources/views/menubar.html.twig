@@ -28,9 +28,9 @@
 				{% if is_granted('ROLE_RESEARCHER') %}
 
 				<ul class="dropdown-menu" role="menu">
-					<li><a href="{{ path('admin_experiments') }}">{% trans %}List experiments{% endtrans %}</a></li>
+					<li><a href="{{ path('experiments') }}">{% trans %}List experiments{% endtrans %}</a></li>
 					<li class="divider"></li>
-					<li><a href="#">{% trans %}Create new experiment{% endtrans %}</a></li>
+					<li><a href="{{ path('admin_experiment_create') }}">{% trans %}Create new experiment{% endtrans %}</a></li>
 				</ul>
 
 				{% else %}

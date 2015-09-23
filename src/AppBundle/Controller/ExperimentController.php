@@ -104,7 +104,7 @@ class ExperimentController extends Controller
      */
     public function listAction()
     {
-    	$experiments = $this->getDoctrine()->getRepository("AppBundle:Experiment")->findAll();
+    	$experiments = $this->getDoctrine()->getRepository("AppBundle:Experiment")->findBy(array("deleted" => false));
 
         return $this->render('experiment/list.html.twig', array('experiments' => $experiments));
     }

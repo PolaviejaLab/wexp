@@ -11,6 +11,7 @@
 			<th>{% trans %}Participate{% endtrans %}</th>
 			{% if is_granted('ROLE_RESEARCHER') %}
 			<th>{% trans %}Edit{% endtrans %}</th>
+			<th>{% trans %}Delete{% endtrans %}
 			{% endif %}
 		</tr>
 	</thead>
@@ -27,10 +28,23 @@
 			<td><a class="btn-sm btn-primary" href="{{ path('admin_experiment_view', {'experiment': experiment.id}) }}">
 				<i class="glyphicon glyphicon-pencil"></i> &nbsp; {% trans %}Edit{% endtrans %}
 			</a></td>
+			
+			<td><a class="btn-sm btn-danger" href="{{ path('admin_experiment_remove', {'experiment': experiment.id}) }}">
+				<i class="glyphicon glyphicon-trash"></i> &nbsp; {% trans %}Delete{% endtrans %}
+			</a></td>
 			{% endif %}
 		</tr>
 	</tbody>
 {% endfor %}
 </table>
+
+{% if is_granted('ROLE_RESEARCHER') %}
+<p>
+	<a class="btn btn-primary" href="{{ path('admin_experiment_create') }}">
+		<i class="glyphicon glyphicon-plus"></i>
+		Experiment
+	</a>
+</p>
+{% endif %}
 
 {% endblock %}

@@ -10,6 +10,28 @@
 
 	<div class="col-md-4">{% render(controller('AppBundle:ScreenAdmin:listByExperiment', {'experiment': experiment.id})) %}</div>
 	
+	<!--<div class="col-md-4">
+		<p><h2>Researchers</h2></p>
+
+		<div class="help-block">
+			<p>The researchers associated with this experiment will be able
+			to download datasets and update the screens.</p>
+		</div>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>				
+				{% for owner in experiment.owners %}
+				<tr><td>{{ owner.username }}</td></tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div> -->
+	
 	<!--
 	<div class="col-md-4">{% render(controller('AppBundle:RoleAdmin:listByExperiment', {'experiment': experiment.id})) %}</div>
 	-->
